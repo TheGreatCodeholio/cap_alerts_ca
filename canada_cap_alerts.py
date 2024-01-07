@@ -247,7 +247,7 @@ def main():
         with open(xml_path, "r") as xml_file:
             xml_data = xml_file.read()
 
-        process_alert(xml_data)
+        process_alert(xml_data, True)
 
     else:
         stream_xml(HOSTS, PORT)
