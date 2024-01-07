@@ -49,13 +49,13 @@ def connect_to_stream(host, port):
         return None
 
 
-def post_to_webhook(post_json):
-    if WEBHOOK_URL:
-        result = requests.post(WEBHOOK_URL, json=post_json)
+def post_to_webhook(webhook_url, post_json):
+    if webhook_url:
+        result = requests.post(webhook_url, json=post_json)
         if result.status_code == 200:
-            print(f"Upload to {WEBHOOK_URL} Successful!")
+            print(f"Upload to {webhook_url} Successful!")
         else:
-            print(f"Upload to {WEBHOOK_URL} failed. {result.status_code} {result.text}")
+            print(f"Upload to {webhook_url} failed. {result.status_code} {result.text}")
         return
     print(f"No Webhook URL, Skipping Webhook post.")
 
@@ -205,7 +205,7 @@ def plot_polygon(ax, polygon):
     ax.plot(lons, lats, marker='o', color='red', markersize=5, linestyle='-', transform=ccrs.Geodetic())
 
 
-def process_alert(xml_data, test_mode=False):
+def process_alert(config_data, xml_data, test_mode=False):
     """Parse the CAP alert XML data."""
     root = ET.fromstring(xml_data)
 
@@ -238,10 +238,10 @@ def process_alert(xml_data, test_mode=False):
     map_base64 = create_map_image(filename, polygons, alert_json.get("en-CA", {}).get("headline"), True)
     alert_json["map_image"] = map_base64
 
-    post_to_webhook(alert_json)
+    post_to_webhook(config_data.get("webhook_url"), alert_json)
 
 
-def stream_xml(hosts, port):
+def stream_xml(config_data, hosts, port):
     while True:
         for host in hosts:
             sock = connect_to_stream(host, port)
@@ -269,7 +269,7 @@ def stream_xml(hosts, port):
                                     last_heartbeat = time.time()  # Update the last heartbeat time
                                 else:
                                     # Process a regular alert
-                                    process_alert(alert_text)
+                                    process_alert(config_data, alert_text)
                             except UnicodeDecodeError as e:
                                 print(f"Error decoding alert: {e}")
 
@@ -313,10 +313,10 @@ def main():
         with open(xml_path, "r") as xml_file:
             xml_data = xml_file.read()
 
-        process_alert(xml_data, True)
+        process_alert(config_data,xml_data, True)
 
     else:
-        stream_xml(HOSTS, PORT)
+        stream_xml(config_data, HOSTS, PORT)
 
 
 if __name__ == "__main__":
