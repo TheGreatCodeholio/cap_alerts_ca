@@ -1,9 +1,15 @@
+import base64
+import io
 import os
 import socket
 import xml.etree.ElementTree as ET
 import time
 import requests
 import argparse
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+from cartopy.io.img_tiles import OSM
 
 ########################################################################################################################
 WEBHOOK_URL = ""
@@ -19,8 +25,10 @@ ARCHIVE_HOSTS = ["http://capcp1.naad-adna.pelmorex.com", "http://capcp2.naad-adn
 MAX_RETRIES = 3
 RETRY_DELAY = 30
 
-
 ########################################################################################################################
+
+map_image_base64 = None
+
 
 def get_command_line_args():
     parser = argparse.ArgumentParser(description="Canada Alert CAP")
@@ -53,17 +61,13 @@ def post_to_webhook(post_json):
     print(f"No Webhook URL, Skipping Webhook post.")
 
 
-def fetch_reference(identifier, timestamp, archive_alert):
-    urldate, _, _ = timestamp.partition('T')
-    reference = timestamp + "I" + identifier
-    filename = reference.translate({ord('-'): ord('_'), ord(':'): ord('_'), ord('+'): ord('p')})
-
+def fetch_reference(identifier, urldate, filename, archive_alert):
     retries = 0
     while retries < MAX_RETRIES:
         for host in ARCHIVE_HOSTS:
             url = f"{host}/{urldate}/{filename}.xml"
             try:
-                print(f"Fetching alert {identifier} using URL {url}", 'debug')
+                print(f"Fetching alert {identifier} using URL {url}")
                 headers = {
                     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'}
                 response = requests.get(url, headers=headers)
@@ -150,15 +154,56 @@ def convert_alert_xml(xml_data):
             "web": get_text(info.find('ns:web', namespace)),
             "parameters": {p.find('ns:valueName', namespace).text: p.find('ns:value', namespace).text for p in
                            info.findall('ns:parameter', namespace)},
-            "area": {
-                "areaDesc": get_text(info.find('ns:area/ns:areaDesc', namespace)),
-                "polygon": [polygon.text for polygon in info.findall('ns:area/ns:polygon', namespace)],
-                "geocodes": {gc.find('ns:valueName', namespace).text: gc.find('ns:value', namespace).text for gc in
-                             info.findall('ns:area/ns:geocode', namespace)}
-            }
+            "areas": []
         }
-
+        for area in info.findall('ns:area', namespace):  # Loop through each area in your data
+            area_dict = {
+                "areaDesc": get_text(area.find('ns:areaDesc', namespace)),
+                "polygon": [polygon.text for polygon in area.findall('ns:polygon', namespace)],
+                "geocodes": {gc.find('ns:valueName', namespace).text: gc.find('ns:value', namespace).text for gc in
+                             area.findall('ns:geocode', namespace)}
+            }
+            alert_dict[language]["areas"].append(area_dict)
     return alert_dict
+
+
+def create_map_image(alert_file_name, polygons, alert_description, save_image):
+    # Create a plot with a specific projection
+    fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={'projection': ccrs.PlateCarree()})
+    tiles = OSM()
+    ax.add_image(tiles, 7)
+
+    ax.set_extent([-67, -63, 43, 46])  # Set the extent to the rough bounding box of your polygons
+
+    # Plot each polygon
+    for polygon in polygons:
+        plot_polygon(ax, polygon)
+
+    plt.suptitle(alert_description, fontsize=22, y=0.95)
+
+    plt.tight_layout()
+    alerts_path = os.path.join(DATA_DIR, "alerts")
+
+    if not os.path.exists(alerts_path):
+        os.makedirs(alerts_path)
+
+    alert_file_name = f"{alert_file_name}_map.png"
+
+    plt.savefig(os.path.join(alerts_path, alert_file_name), dpi=800)
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', dpi=800)
+    buf.seek(0)
+    image_base64 = base64.b64encode(buf.read()).decode('utf-8')
+    return image_base64
+
+
+def plot_polygon(ax, polygon):
+    # Split the string into pairs of lat, lon
+    points = polygon.split(' ')
+    lats, lons = zip(*[map(float, point.split(',')) for point in points])
+
+    # Plot the polygon
+    ax.plot(lons, lats, marker='o', color='red', markersize=5, linestyle='-', transform=ccrs.Geodetic())
 
 
 def process_alert(xml_data, test_mode=False):
@@ -168,21 +213,32 @@ def process_alert(xml_data, test_mode=False):
     # Parse the main elements of the CAP message
     identifier = root.find('cap:identifier', NAMESPACES).text
     sender = root.find('cap:sender', NAMESPACES).text
-    sent = root.find('cap:sent', NAMESPACES).text
+    timestamp = root.find('cap:sent', NAMESPACES).text
     status = root.find('cap:status', NAMESPACES).text
     msgType = root.find('cap:msgType', NAMESPACES).text
     scope = root.find('cap:scope', NAMESPACES).text
 
+    urldate, _, _ = timestamp.partition('T')
+    reference = timestamp + "I" + identifier
+    filename = reference.translate({ord('-'): ord('_'), ord(':'): ord('_'), ord('+'): ord('p')})
+
     # Print the parsed data (or process it as needed)
     print(f"Identifier: {identifier}")
     print(f"Sender: {sender}")
-    print(f"Sent: {sent}")
+    print(f"Sent: {timestamp}")
     print(f"Status: {status}")
     print(f"Message Type: {msgType}")
     print(f"Scope: {scope}")
 
-    xml_data = fetch_reference(identifier, sent, True if not test_mode else False)
+    xml_data = fetch_reference(identifier, urldate, filename, True if not test_mode else False)
     alert_json = convert_alert_xml(xml_data)
+    polygons = []
+    for area in alert_json.get("en-CA", {}).get("areas", {}):
+        for co in area.get("polygon"):
+            polygons.append(co)
+    map_base64 = create_map_image(filename, polygons, alert_json.get("en-CA", {}).get("headline"), True)
+    alert_json["map_image"] = map_base64
+
     post_to_webhook(alert_json)
 
 
