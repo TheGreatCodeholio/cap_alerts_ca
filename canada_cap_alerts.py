@@ -188,9 +188,9 @@ def create_map_image(alert_file_name, polygons, alert_description, save_image):
 
     alert_file_name = f"{alert_file_name}_map.png"
 
-    plt.savefig(os.path.join(alerts_path, alert_file_name), dpi=800)
+    plt.savefig(os.path.join(alerts_path, alert_file_name), dpi=400)
     buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=800)
+    plt.savefig(buf, format='png', dpi=400)
     buf.seek(0)
     image_base64 = base64.b64encode(buf.read()).decode('utf-8')
     return image_base64
@@ -289,6 +289,7 @@ def stream_xml(config_data, hosts, port):
         print(f"Attempting to reconnect in {RECONNECT_DELAY} seconds...")
         time.sleep(RECONNECT_DELAY)
 
+
 def load_configuration():
     config_path = os.path.join(DATA_DIR, "etc")
     config_file = "config.json"
@@ -299,6 +300,8 @@ def load_configuration():
     else:
         print("Please create a config file in etc/config.json")
         return False
+
+
 def main():
     """Main function to stream and parse CAP XML data."""
     args = get_command_line_args()
@@ -313,7 +316,7 @@ def main():
         with open(xml_path, "r") as xml_file:
             xml_data = xml_file.read()
 
-        process_alert(config_data,xml_data, True)
+        process_alert(config_data, xml_data, True)
 
     else:
         stream_xml(config_data, HOSTS, PORT)
