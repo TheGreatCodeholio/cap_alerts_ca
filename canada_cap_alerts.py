@@ -1,0 +1,257 @@
+import os
+import socket
+import xml.etree.ElementTree as ET
+import time
+import requests
+import argparse
+
+########################################################################################################################
+WEBHOOK_URL = ""
+HOSTS = ["streaming1.naad-adna.pelmorex.com", "streaming2.naad-adna.pelmorex.com"]
+PORT = 8080
+HEARTBEAT_INTERVAL = 60
+MAX_HEARTBEAT_DELAY = 120
+BUFFER_SIZE = 1024  # Adjust as needed
+RECONNECT_DELAY = 5  # Seconds to wait before trying to reconnect
+NAMESPACES = {'cap': 'urn:oasis:names:tc:emergency:cap:1.2'}
+DATA_DIR = os.getcwd()
+ARCHIVE_HOSTS = ["http://capcp1.naad-adna.pelmorex.com", "http://capcp2.naad-adna.pelmorex.com"]
+MAX_RETRIES = 3
+RETRY_DELAY = 30
+
+
+########################################################################################################################
+
+def get_command_line_args():
+    parser = argparse.ArgumentParser(description="Canada Alert CAP")
+    parser.add_argument('-a', '--alert_test', type=str, default=None, help="Path to Test Alert XML")
+    return parser.parse_args()
+
+
+def connect_to_stream(host, port):
+    try:
+        # Create a socket object
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # Connect to the server
+        s.connect((host, port))
+        print(f"Connected to {host}")
+        return s
+    except socket.error as e:
+        print(f"Error connecting to {host}: {e}")
+        return None
+
+
+def post_to_webhook(post_json):
+    if WEBHOOK_URL:
+        result = requests.post(WEBHOOK_URL, json=post_json)
+        if result.status_code == 200:
+            print(f"Upload to {WEBHOOK_URL} Successful!")
+        else:
+            print(f"Upload to {WEBHOOK_URL} failed. {result.status_code} {result.text}")
+        return
+    print(f"No Webhook URL, Skipping Webhook post.")
+
+
+def fetch_reference(identifier, timestamp, archive_alert):
+    urldate, _, _ = timestamp.partition('T')
+    reference = timestamp + "I" + identifier
+    filename = reference.translate({ord('-'): ord('_'), ord(':'): ord('_'), ord('+'): ord('p')})
+
+    retries = 0
+    while retries < MAX_RETRIES:
+        for host in ARCHIVE_HOSTS:
+            url = f"{host}/{urldate}/{filename}.xml"
+            try:
+                print(f"Fetching alert {identifier} using URL {url}", 'debug')
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'}
+                response = requests.get(url, headers=headers)
+
+                if response.status_code == 200:
+                    xml_data = response.content
+
+                    if archive_alert:
+                        alert_path = os.path.join(DATA_DIR, "alerts")
+                        if not os.path.exists(alert_path):
+                            os.makedirs(alert_path)
+
+                        alert_file_path = os.path.join(alert_path, f"{filename}.xml")
+                        with open(alert_file_path, 'wb') as f:
+                            f.write(xml_data)
+
+                    return xml_data
+
+            except requests.ConnectionError:
+                print(f"Connection error occurred while fetching the alert {identifier}")
+                return None
+
+            except Exception as e:
+                print(f"An error occurred while fetching the alert {identifier}: {e}")
+                return None
+
+        # Retry logic
+        retries += 1
+        if retries < MAX_RETRIES:
+            print(f"Retrying... Attempt {retries} of {MAX_RETRIES}")
+            time.sleep(RETRY_DELAY)
+
+    print(f"Error fetching alert {identifier}")
+    return None
+
+
+def convert_alert_xml(xml_data):
+    # Define the namespace
+    namespace = {'ns': 'urn:oasis:names:tc:emergency:cap:1.2'}
+
+    # Parse the XML
+    root = ET.fromstring(xml_data)
+
+    # Function to extract text from an element
+    def get_text(element, default=''):
+        return element.text if element is not None else default
+
+    # Construct the dictionary
+    alert_dict = {
+        "namespace": root.tag[root.tag.find('}') + 1:],  # Extract namespace after '}' character
+        "identifier": get_text(root.find('ns:identifier', namespace)),
+        "sender": get_text(root.find('ns:sender', namespace)),
+        "sent": get_text(root.find('ns:sent', namespace)),
+        "status": get_text(root.find('ns:status', namespace)),
+        "msgType": get_text(root.find('ns:msgType', namespace)),
+        "source": get_text(root.find('ns:source', namespace)),
+        "scope": get_text(root.find('ns:scope', namespace)),
+        "codes": [code.text for code in root.findall('ns:code', namespace)],
+        "note": get_text(root.find('ns:note', namespace)),
+        "references": get_text(root.find('ns:references', namespace)).split(),
+    }
+
+    # Process each 'info' section
+    for info in root.findall('ns:info', namespace):
+        language = get_text(info.find('ns:language', namespace))
+
+        # Construct the language-specific details
+        alert_dict[language] = {
+            "category": get_text(info.find('ns:category', namespace)),
+            "event": get_text(info.find('ns:event', namespace)),
+            "responseType": get_text(info.find('ns:responseType', namespace)),
+            "urgency": get_text(info.find('ns:urgency', namespace)),
+            "severity": get_text(info.find('ns:severity', namespace)),
+            "certainty": get_text(info.find('ns:certainty', namespace)),
+            "audience": get_text(info.find('ns:audience', namespace)),
+            "eventCodes": {ec.find('ns:valueName', namespace).text: ec.find('ns:value', namespace).text for ec in
+                           info.findall('ns:eventCode', namespace)},
+            "effective": get_text(info.find('ns:effective', namespace)),
+            "expires": get_text(info.find('ns:expires', namespace)),
+            "sender_name": get_text(info.find('ns:senderName', namespace)),
+            "headline": get_text(info.find('ns:headline', namespace)),
+            "description": get_text(info.find('ns:description', namespace)),
+            "instruction": get_text(info.find('ns:instruction', namespace)),
+            "web": get_text(info.find('ns:web', namespace)),
+            "parameters": {p.find('ns:valueName', namespace).text: p.find('ns:value', namespace).text for p in
+                           info.findall('ns:parameter', namespace)},
+            "area": {
+                "areaDesc": get_text(info.find('ns:area/ns:areaDesc', namespace)),
+                "polygon": [polygon.text for polygon in info.findall('ns:area/ns:polygon', namespace)],
+                "geocodes": {gc.find('ns:valueName', namespace).text: gc.find('ns:value', namespace).text for gc in
+                             info.findall('ns:area/ns:geocode', namespace)}
+            }
+        }
+
+    return alert_dict
+
+
+def process_alert(xml_data, test_mode=False):
+    """Parse the CAP alert XML data."""
+    root = ET.fromstring(xml_data)
+
+    # Parse the main elements of the CAP message
+    identifier = root.find('cap:identifier', NAMESPACES).text
+    sender = root.find('cap:sender', NAMESPACES).text
+    sent = root.find('cap:sent', NAMESPACES).text
+    status = root.find('cap:status', NAMESPACES).text
+    msgType = root.find('cap:msgType', NAMESPACES).text
+    scope = root.find('cap:scope', NAMESPACES).text
+
+    # Print the parsed data (or process it as needed)
+    print(f"Identifier: {identifier}")
+    print(f"Sender: {sender}")
+    print(f"Sent: {sent}")
+    print(f"Status: {status}")
+    print(f"Message Type: {msgType}")
+    print(f"Scope: {scope}")
+
+    xml_data = fetch_reference(identifier, sent, True if not test_mode else False)
+    alert_json = convert_alert_xml(xml_data)
+    post_to_webhook(alert_json)
+
+
+def stream_xml(hosts, port):
+    while True:
+        for host in hosts:
+            sock = connect_to_stream(host, port)
+            if sock:
+                try:
+                    buffer = b''
+                    last_heartbeat = time.time()  # Record the time when the last heartbeat was received
+
+                    while True:
+                        # Receive data from the stream
+                        data = sock.recv(BUFFER_SIZE)
+                        if not data:
+                            break
+
+                        # Decode and add to buffer
+                        buffer += data
+
+                        # Check for the end of an alert or heartbeat message
+                        if b'</alert>' in buffer:
+                            try:
+                                alert_text = buffer.decode('utf-8')
+                                if 'NAADS-Heartbeat' in alert_text:
+                                    # Process heartbeat
+                                    print("Heartbeat received")
+                                    last_heartbeat = time.time()  # Update the last heartbeat time
+                                else:
+                                    # Process a regular alert
+                                    process_alert(alert_text)
+                            except UnicodeDecodeError as e:
+                                print(f"Error decoding alert: {e}")
+
+                            buffer = b''  # Reset the BUffer
+
+                        # Check if the heartbeat delay has been exceeded
+                        if time.time() - last_heartbeat > MAX_HEARTBEAT_DELAY:
+                            print("Heartbeat delay exceeded, reconnecting...")
+                            break
+
+                except socket.error as e:
+                    print(f"Error receiving data: {e}")
+                finally:
+                    sock.close()
+                    print(f"Disconnected from {host}")
+
+        print(f"Attempting to reconnect in {RECONNECT_DELAY} seconds...")
+        time.sleep(RECONNECT_DELAY)
+
+
+def main():
+    """Main function to stream and parse CAP XML data."""
+    args = get_command_line_args()
+
+    if args.alert_test:
+        xml_path = args.alert_test
+        if not os.path.exists(xml_path):
+            print("Can not find specified Test Alert XML file.")
+
+        with open(xml_path, "r") as xml_file:
+            xml_data = xml_file.read()
+
+        process_alert(xml_data)
+
+    else:
+        stream_xml(HOSTS, PORT)
+
+
+if __name__ == "__main__":
+    main()

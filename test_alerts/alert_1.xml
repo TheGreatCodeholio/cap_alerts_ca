@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+    <identifier>urn:oid:2.49.0.1.124.2586021404.2024</identifier>
+    <sender>cap-pac@canada.ca</sender>
+    <sent>2024-01-07T01:31:08-00:00</sent>
+    <status>Actual</status>
+    <msgType>Update</msgType>
+    <source>Env. Can. - Can. Met. Ctr. – Montréal</source>
+    <scope>Public</scope>
+    <code>profile:CAP-CP:0.4</code>
+    <code>layer:SOREM:1.0</code>
+    <code>layer:EC-MSC-SMC:1.0</code>
+    <code>layer:EC-MSC-SMC:1.1</code>
+    <code>layer:SOREM:2.0</code>
+    <note>Service Notice - August 2023: The Environment and Climate Change Canada (ECCC) CAP Service undergoes changes
+        from time to time as the business of alerting evolves. For 2023, there are no more planned changes, however for
+        2024, changes are expected to include... 1) expansion of the Storm Surge Program to include most of Canada, 2)
+        the use of threat based dynamic polygons for convective weather threats, and 3) other minor improvements and
+        corrections. For more information on these changes, you are invited to subscribe to the following mailing list:
+        http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info | Notification de service - août 2023: Le service du PAC
+        d’Environnement et Changement climatique Canada (ECCC) subit périodiquement des changements à mesure que le
+        système d’alerte évolue. Pour 2023, il n’y a pas d’autres changements prévus. Cependant, pour 2024, il y aura
+        des changements incluant... 1) une expansion du programme d'onde de tempête afin de couvrir la majeure partie du
+        Canada, 2) l’utilisation de polygones de menace dynamiques pour les menaces convectives météorologiques, et 3)
+        d’autres améliorations et corrections mineures. Pour plus d’informations sur ces changements, vous êtes invités
+        à vous inscrire à la liste de diffusion suivante: http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info
+    </note>
+    <references>cap-pac@canada.ca,urn:oid:2.49.0.1.124.4230962895.2024,2024-01-04T14:52:14-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.0431969766.2024,2024-01-05T01:58:48-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.1179728442.2024,2024-01-05T08:44:26-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.1371808898.2024,2024-01-05T14:58:19-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.2588973193.2024,2024-01-05T20:00:03-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.3364725670.2024,2024-01-06T01:27:03-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.3635882753.2024,2024-01-06T09:00:48-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.1768066097.2024,2024-01-06T10:53:22-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.2182044601.2024,2024-01-06T15:08:07-00:00
+        cap-pac@canada.ca,urn:oid:2.49.0.1.124.3912169114.2024,2024-01-06T19:52:33-00:00
+    </references>
+    <info>
+        <language>en-CA</language>
+        <category>Met</category>
+        <event>weather</event>
+        <responseType>Monitor</responseType>
+        <urgency>Future</urgency>
+        <severity>Minor</severity>
+        <certainty>Possible</certainty>
+        <audience>general public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>weather</value>
+        </eventCode>
+        <effective>2024-01-07T01:31:08-00:00</effective>
+        <expires>2024-01-07T17:27:54-00:00</expires>
+        <senderName>Environment Canada</senderName>
+        <headline>special weather statement in effect</headline>
+        <description>
+            Accumulating snow on Sunday.
+
+            Locations: Halifax County West, Digby, and Annapolis counties.
+
+            Total snowfall: 5 to 15 cm.
+
+            Maximum wind gusts: Northeasterly 40 to 60 km/h.
+
+            Time span: beginning Sunday morning and ending Sunday night into Monday.
+
+            Similar storms in the past have caused:
+            - hazardous driving conditions
+            - cancellations of scheduled activities
+
+            Remarks: Snowfall accumulations will be highly variable over short distances, a slight shift further north
+            in the storm track will lead to higher snowfall totals.
+
+            ###
+
+            Please continue to monitor alerts and forecasts issued by Environment Canada. To report severe weather, send
+            an email to NSstorm@ec.gc.ca or tweet reports using #NSStorm.
+        </description>
+        <instruction/>
+        <web>https://weather.gc.ca/</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>statement</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>
+                msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20240107012754214/WS_11_71_CWHX/SPS/1213356861201262086202401040506_WS_11_71_CWHX/actual/en_proper_complete_c-fr_proper_complete_c/NinJo
+            </value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:2132 M:10408 C:11218</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>special weather statement</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>Nova Scotia</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>WS_11_71_CWHX</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value/>
+        </parameter>
+        <area>
+            <areaDesc>Annapolis County</areaDesc>
+            <polygon>44.8889,-64.8921 44.6652,-64.7714 44.5351,-64.9461 44.4407,-65.0755 44.4446,-65.1623
+                44.4122,-65.1856 44.3106,-65.3296 44.6859,-65.7604 44.8139,-65.8843 45.2427,-65.0987 45.1243,-65.0577
+                44.8889,-64.8921
+            </polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>011200</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1205</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Digby County</areaDesc>
+            <polygon>44.3055,-66.5371 44.8139,-65.8843 44.6859,-65.7604 44.3106,-65.3296 44.2277,-65.3923
+                44.1686,-65.6225 44.1327,-65.8891 44.0644,-66.0177 44.0035,-66.1537 43.9343,-66.2609 44.3055,-66.5371
+            </polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>011300</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1203</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1205002</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Halifax Metro and Halifax County West</areaDesc>
+            <polygon>44.762,-64.2442 44.8069,-63.8403 44.8965,-63.7597 44.9416,-63.657 44.9693,-63.5208 44.9886,-63.46
+                44.9526,-63.4302 44.736,-63.2515 44.7352,-63.2511 44.7163,-63.2405 44.6376,-63.2105 44.6121,-63.2658
+                44.3309,-63.6521 44.4641,-63.9672 44.576,-64.005 44.6224,-64.0523 44.6294,-64.0653 44.6309,-64.0684
+                44.6356,-64.0753 44.7407,-64.2157 44.762,-64.2442
+            </polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>012700</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1209019</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1209029</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1209034</value>
+            </geocode>
+        </area>
+    </info>
+    <info>
+        <language>fr-CA</language>
+        <category>Met</category>
+        <event>météo</event>
+        <responseType>Monitor</responseType>
+        <urgency>Future</urgency>
+        <severity>Minor</severity>
+        <certainty>Possible</certainty>
+        <audience>grand public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>weather</value>
+        </eventCode>
+        <effective>2024-01-07T01:31:08-00:00</effective>
+        <expires>2024-01-07T17:27:54-00:00</expires>
+        <senderName>Environnement Canada</senderName>
+        <headline>bulletin météorologique spécial en vigueur</headline>
+        <description>
+            Accumulation de neige dimanche.
+
+            Régions : l'ouest du comté d'Halifax, et les comtés de Digby et d'Annapolis.
+
+            Quantité totale de neige : de 5 à 15 cm.
+
+            Rafales maximales : du nord-est de 40 à 60 km/h.
+
+            Période : de dimanche matin jusqu'à la nuit de dimanche à lundi ou lundi.
+
+            Par le passé, des systèmes comparables ont entraîné :
+            - des conditions routières dangereuses
+            - l'annulation d'activités;
+
+            Remarques : l'accumulation de neige sera hautement variable sur de courtes distances; si la tempête suit une
+            trajectoire légèrement plus au nord que prévu, l'accumulation totale de neige sera plus importante.
+
+            ###
+
+            Veuillez continuer à surveiller les alertes et les prévisions émises par Environnement Canada. Pour signaler
+            du temps violent, envoyez un courriel à meteoNS@ec.gc.ca ou publiez un gazouillis en utilisant le mot-clic
+            #NSMeteo.
+        </description>
+        <instruction/>
+        <web>https://meteo.gc.ca/</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>statement</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>
+                msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20240107012754214/WS_11_71_CWHX/SPS/1213356861201262086202401040506_WS_11_71_CWHX/actual/en_proper_complete_c-fr_proper_complete_c/NinJo
+            </value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:2132 M:10408 C:11218</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>bulletin météorologique spécial</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>Nouvelle-Écosse</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>WS_11_71_CWHX</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value/>
+        </parameter>
+        <area>
+            <areaDesc>comté d'Annapolis</areaDesc>
+            <polygon>44.8889,-64.8921 44.6652,-64.7714 44.5351,-64.9461 44.4407,-65.0755 44.4446,-65.1623
+                44.4122,-65.1856 44.3106,-65.3296 44.6859,-65.7604 44.8139,-65.8843 45.2427,-65.0987 45.1243,-65.0577
+                44.8889,-64.8921
+            </polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>011200</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1205</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>comté de Digby</areaDesc>
+            <polygon>44.3055,-66.5371 44.8139,-65.8843 44.6859,-65.7604 44.3106,-65.3296 44.2277,-65.3923
+                44.1686,-65.6225 44.1327,-65.8891 44.0644,-66.0177 44.0035,-66.1537 43.9343,-66.2609 44.3055,-66.5371
+            </polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>011300</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1203</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1205002</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>ville d'Halifax et l'ouest du comté d'Halifax</areaDesc>
+            <polygon>44.762,-64.2442 44.8069,-63.8403 44.8965,-63.7597 44.9416,-63.657 44.9693,-63.5208 44.9886,-63.46
+                44.9526,-63.4302 44.736,-63.2515 44.7352,-63.2511 44.7163,-63.2405 44.6376,-63.2105 44.6121,-63.2658
+                44.3309,-63.6521 44.4641,-63.9672 44.576,-64.005 44.6224,-64.0523 44.6294,-64.0653 44.6309,-64.0684
+                44.6356,-64.0753 44.7407,-64.2157 44.762,-64.2442
+            </polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>012700</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1209019</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1209029</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>1209034</value>
+            </geocode>
+        </area>
+    </info>
+    <Signature Id="NAADS Signature" xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                <DigestValue>HMPAWLZYGQ2Zbrz/W8d6LhmfNB1m9D/Th5q4U4dyhZo=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>
+            REUDUCSu7Bz8pQTaBDSZ7ASBp69ighoAXWVkHlrw6NMnmUQfaDXGwgi26wDDbfUKaQzlgqpbnxSaDHxzBWhIYlrSY9ar4GLCemIeYwrF8BNbJjXYQuhuBDZBdIDdumrGejbH8xdrb0PBjz03FyinVcdg5Wlp/15iB+eSQOGqjtRtbLiy/6BFu6oXWMWab+KH8GjTonljk7Cc7cpMl+bjSedjzf780YYgXFede92YzemGlXu3WqI8Cc+z6dcIJU2J5q4vvsVLFIChRWJYOjvcoRu2kvfltNxM/KIS20W5pOTFPW3qAMo2YAGNrSfKMihevdCK0+hIdhnq4vViIBW2qQ==
+        </SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>
+                    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
+                </X509Certificate>
+            </X509Data>
+        </KeyInfo>
+        <Object xmlns="">
+            <SignatureProperties>
+                <SignatureProperty Id="NAADS-DSS1" Target="https://dss1.naad-adna.pelmorex.com">
+                    <xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd"/>
+                </SignatureProperty>
+                <SignatureProperty Id="NAADS-DSS2" Target="https://dss2.naad-adna.pelmorex.com">
+                    <xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd"/>
+                </SignatureProperty>
+            </SignatureProperties>
+        </Object>
+    </Signature>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="Environment Canada">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                <DigestValue>HMPAWLZYGQ2Zbrz/W8d6LhmfNB1m9D/Th5q4U4dyhZo=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>K8hQNTZBlBKD4fVR/FkBYWqUR/Wz0AYXtxqeLNScTQ2ngladjhTpjABlZEWvLyb8
+            mn4Aj3/bqwCSx+L+W1kUzI8u0C/CDinjn4/H87x3bSfiIbNwr9JvbwswPsHhpMYF
+            +7AcykmeUmNLU5JzaJ2b6f8HyRHPytkQ0pvOKoCp81wrHN5j+rSmfd8X420Fv4qo
+            d06pgwbz1GaHHINtgp/PEJlsMacAcFyWP2n27X4pHOgm1dR7qrPgDnDA4NsFfxSh
+            ELGl7GZiFFIWE15p5KDjC3cKvVLOlX4smV9MfQWaNef8m5iwIwBWcfRowD0zvIq6
+            ciaYYQsPstdrxY7QhKjb5A==
+        </SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIHQDCCBiigAwIBAgIQauIRkpOPcGViI+LoZHWDFzANBgkqhkiG9w0BAQsFADCB
+                    ujELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xKDAmBgNVBAsT
+                    H1NlZSB3d3cuZW50cnVzdC5uZXQvbGVnYWwtdGVybXMxOTA3BgNVBAsTMChjKSAy
+                    MDEyIEVudHJ1c3QsIEluYy4gLSBmb3IgYXV0aG9yaXplZCB1c2Ugb25seTEuMCwG
+                    A1UEAxMlRW50cnVzdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEwxSzAeFw0y
+                    MzA0MjcxNDEyNDVaFw0yNDA1MDcxNDEyNDVaMGwxCzAJBgNVBAYTAkNBMQ8wDQYD
+                    VQQIEwZRdWViZWMxETAPBgNVBAcTCEdhdGluZWF1MR8wHQYDVQQKExZTaGFyZWQg
+                    U2VydmljZXMgQ2FuYWRhMRgwFgYDVQQDDA8qLndlYXRoZXIuZ2MuY2EwggEiMA0G
+                    CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOSYFvWlJgQgD5twPwuMqUXQB8Raj6
+                    enUh60KlOqYi2Moja8qBMhANS848XjHd+OlTNKv5J9YT6OoxTqcRe60e3nWYF6/u
+                    Plu+O4KWOO8x6jWbttEn5G7j7V35yaWXqP0LObVrQLDMYX3D4xsm+MJK7eyGJz8k
+                    AJAJYONS/+dp7/0jlrzlTjyuT4Uk50zVDvTGxiYpgjPfuXG9Bke5q8Cju4EEgAfW
+                    1I2+67Is7ae2fTjhvPH+w+L4iujk1ucmkrZqd2Norr8eeLebvDiSNxV4FkdzUZKQ
+                    TTycHQb1u/79WGgRKCH+nPYTzW/l/muRz59V0LKTQOlFmq8H45fmSYWZAgMBAAGj
+                    ggONMIIDiTAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRlq9u/A7i58xA3Eb4DmYis
+                    FzYwKTAfBgNVHSMEGDAWgBSConB03bxTP8971PfNf6dgxgpMvzBoBggrBgEFBQcB
+                    AQRcMFowIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3NwLmVudHJ1c3QubmV0MDMGCCsG
+                    AQUFBzAChidodHRwOi8vYWlhLmVudHJ1c3QubmV0L2wxay1jaGFpbjI1Ni5jZXIw
+                    MwYDVR0fBCwwKjAooCagJIYiaHR0cDovL2NybC5lbnRydXN0Lm5ldC9sZXZlbDFr
+                    LmNybDCBnQYDVR0RBIGVMIGSgg8qLndlYXRoZXIuZ2MuY2GCDXdlYXRoZXIuZ2Mu
+                    Y2GCC21ldGVvLmdjLmNhgg0qLm1ldGVvLmdjLmNhghUqLmFscGhhLndlYXRoZXIu
+                    Z2MuY2GCEyouYWxwaGEubWV0ZW8uZ2MuY2GCFCouYmV0YS53ZWF0aGVyLmdjLmNh
+                    ghIqLmJldGEubWV0ZW8uZ2MuY2EwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQG
+                    CCsGAQUFBwMBBggrBgEFBQcDAjBMBgNVHSAERTBDMDcGCmCGSAGG+mwKAQUwKTAn
+                    BggrBgEFBQcCARYbaHR0cHM6Ly93d3cuZW50cnVzdC5uZXQvcnBhMAgGBmeBDAEC
+                    AjCCAXsGCisGAQQB1nkCBAIEggFrBIIBZwFlAHUAc9meiRtMlnigIH1HneayxhzQ
+                    UV5xGSqMa4AQesF3crUAAAGHww80IQAABAMARjBEAiAkpowR7bbTYLp4v/tw0Fav
+                    HHP8mm2i6/ecg03yasJkkgIga1hmg5g/Gq97+HOCDwjsy77aS8+PirSarIO6/X1H
+                    EfkAdQA7U3d1Pi25gE6LMFsG/kA7Z9hPw/THvQANLXJv4frUFwAAAYfDDzQcAAAE
+                    AwBGMEQCIBKVCiUTam6W9Y+5TiuhpsxVVx2TYVz9SebYPuB4XyHUAiB4Y9ZXnkOt
+                    rJJAaw4im3kY7OWZG40xPUL1ygK8trUsIAB1AO7N0GTV2xrOxVy3nbTNE6Iyh0Z8
+                    vOzew1FIWUZxH7WbAAABh8MPNF0AAAQDAEYwRAIgYbZkNJlz8a4d35p4+wLg0h5P
+                    WtFyyBEqy06IoSV7UWICIH65mirJoLVsZFK7kXW3IJF4+xlgATBcr/n2ImBLSWug
+                    MA0GCSqGSIb3DQEBCwUAA4IBAQCcp2dfEDsCzJHpMsTF1hlEyYPTgmfrSbgegWT3
+                    76r0r7XGY7qIym53HE6Pk3Q7BgsegpV+pS8UMWx1m9x0ZcUQX11gMBlNLv0WCSBe
+                    4/9BOaGc2deYrXsRAmmFJwqvgegcBSQhg4zZSoSSVqJPhaJ1WYWqDbJW+doY15xy
+                    JPm7UbZqCAbzm3/c36N9j/Zu6h+LA9rhltfwYoWCyqlBtJCRrs7K7KEP+dLtsoby
+                    +AhyY+3dK2IB4G7v5Qbxa88WKV9EsXXMpvl0v/kXSDjIHJwRPyOf1OKU9x2Mc3Mx
+                    KEgzSJ0GUUW0RqqCVWZ14TBoxUq1jJw4m12zSF+PYFpSH6g5
+                </X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</alert>
