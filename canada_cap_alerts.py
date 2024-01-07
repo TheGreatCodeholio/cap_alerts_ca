@@ -1,5 +1,6 @@
 import base64
 import io
+import json
 import os
 import socket
 import xml.etree.ElementTree as ET
@@ -8,11 +9,9 @@ import requests
 import argparse
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 from cartopy.io.img_tiles import OSM
 
 ########################################################################################################################
-WEBHOOK_URL = ""
 HOSTS = ["streaming1.naad-adna.pelmorex.com", "streaming2.naad-adna.pelmorex.com"]
 PORT = 8080
 HEARTBEAT_INTERVAL = 60
@@ -290,11 +289,22 @@ def stream_xml(hosts, port):
         print(f"Attempting to reconnect in {RECONNECT_DELAY} seconds...")
         time.sleep(RECONNECT_DELAY)
 
-
+def load_configuration():
+    config_path = os.path.join(DATA_DIR, "etc")
+    config_file = "config.json"
+    if os.path.exists(os.path.join(config_path, config_file)):
+        with open(os.path.join(config_path, config_file), 'r') as cf:
+            config_data = json.loads(cf.read())
+        return config_data
+    else:
+        print("Please create a config file in etc/config.json")
+        return False
 def main():
     """Main function to stream and parse CAP XML data."""
     args = get_command_line_args()
-
+    config_data = load_configuration()
+    if not config_data:
+        exit(1)
     if args.alert_test:
         xml_path = args.alert_test
         if not os.path.exists(xml_path):
