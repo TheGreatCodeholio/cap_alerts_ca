@@ -113,7 +113,7 @@ def convert_alert_xml(xml_data):
 
     # Function to extract text from an element
     def get_text(element, default=''):
-        return element.text if element is not None else default
+        return element.text.strip() if element is not None and element.text is not None else default
 
     # Construct the dictionary
     alert_dict = {
@@ -125,9 +125,9 @@ def convert_alert_xml(xml_data):
         "msgType": get_text(root.find('ns:msgType', namespace)),
         "source": get_text(root.find('ns:source', namespace)),
         "scope": get_text(root.find('ns:scope', namespace)),
-        "codes": [code.text for code in root.findall('ns:code', namespace)],
+        "codes": [get_text(code) for code in root.findall('ns:code', namespace)],
         "note": get_text(root.find('ns:note', namespace)),
-        "references": get_text(root.find('ns:references', namespace)).split(),
+        "references": get_text(root.find('ns:references', namespace), default='').split(),
     }
 
     # Process each 'info' section
@@ -143,7 +143,7 @@ def convert_alert_xml(xml_data):
             "severity": get_text(info.find('ns:severity', namespace)),
             "certainty": get_text(info.find('ns:certainty', namespace)),
             "audience": get_text(info.find('ns:audience', namespace)),
-            "eventCodes": {ec.find('ns:valueName', namespace).text: ec.find('ns:value', namespace).text for ec in
+            "eventCodes": {get_text(ec.find('ns:valueName', namespace)): get_text(ec.find('ns:value', namespace)) for ec in
                            info.findall('ns:eventCode', namespace)},
             "effective": get_text(info.find('ns:effective', namespace)),
             "expires": get_text(info.find('ns:expires', namespace)),
@@ -152,15 +152,15 @@ def convert_alert_xml(xml_data):
             "description": get_text(info.find('ns:description', namespace)),
             "instruction": get_text(info.find('ns:instruction', namespace)),
             "web": get_text(info.find('ns:web', namespace)),
-            "parameters": {p.find('ns:valueName', namespace).text: p.find('ns:value', namespace).text for p in
+            "parameters": {get_text(p.find('ns:valueName', namespace)): get_text(p.find('ns:value', namespace)) for p in
                            info.findall('ns:parameter', namespace)},
             "areas": []
         }
         for area in info.findall('ns:area', namespace):  # Loop through each area in your data
             area_dict = {
                 "areaDesc": get_text(area.find('ns:areaDesc', namespace)),
-                "polygon": [polygon.text for polygon in area.findall('ns:polygon', namespace)],
-                "geocodes": {gc.find('ns:valueName', namespace).text: gc.find('ns:value', namespace).text for gc in
+                "polygon": [get_text(polygon) for polygon in area.findall('ns:polygon', namespace)],
+                "geocodes": {get_text(gc.find('ns:valueName', namespace)): get_text(gc.find('ns:value', namespace)) for gc in
                              area.findall('ns:geocode', namespace)}
             }
             alert_dict[language]["areas"].append(area_dict)
