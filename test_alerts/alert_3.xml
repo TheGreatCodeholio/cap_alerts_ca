@@ -1,0 +1,376 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+    <identifier>urn:oid:2.49.0.1.124.2946376256.2024</identifier>
+    <sender>cap-pac@canada.ca</sender>
+    <sent>2024-01-08T16:55:30-00:00</sent>
+    <status>Actual</status>
+    <msgType>Update</msgType>
+    <source>Env. Can. - Can. Met. Ctr. – Montréal</source>
+    <scope>Public</scope>
+    <code>profile:CAP-CP:0.4</code>
+    <code>layer:SOREM:1.0</code>
+    <code>layer:EC-MSC-SMC:1.0</code>
+    <code>layer:EC-MSC-SMC:1.1</code>
+    <code>layer:SOREM:2.0</code>
+    <note>Service Notice - August 2023: The Environment and Climate Change Canada (ECCC) CAP Service undergoes changes from time to time as the business of alerting evolves. For 2023, there are no more planned changes, however for 2024, changes are expected to include... 1) expansion of the Storm Surge Program to include most of Canada, 2) the use of threat based dynamic polygons for convective weather threats, and 3) other minor improvements and corrections. For more information on these changes, you are invited to subscribe to the following mailing list: http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info | Notification de service - août 2023: Le service du PAC d’Environnement et Changement climatique Canada (ECCC) subit périodiquement des changements à mesure que le système d’alerte évolue. Pour 2023, il n’y a pas d’autres changements prévus. Cependant, pour 2024, il y aura des changements incluant... 1) une expansion du programme d'onde de tempête afin de couvrir la majeure partie du Canada, 2) l’utilisation de polygones de menace dynamiques pour les menaces convectives météorologiques, et 3) d’autres améliorations et corrections mineures. Pour plus d’informations sur ces changements, vous êtes invités à vous inscrire à la liste de diffusion suivante: http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info</note>
+    <references>cap-pac@canada.ca,urn:oid:2.49.0.1.124.1027888323.2024,2024-01-07T15:38:17-00:00 cap-pac@canada.ca,urn:oid:2.49.0.1.124.3669999787.2024,2024-01-07T17:48:11-00:00 cap-pac@canada.ca,urn:oid:2.49.0.1.124.3375224807.2024,2024-01-07T21:38:32-00:00 cap-pac@canada.ca,urn:oid:2.49.0.1.124.2799093043.2024,2024-01-08T04:56:03-00:00 cap-pac@canada.ca,urn:oid:2.49.0.1.124.1483009059.2024,2024-01-08T10:36:32-00:00</references>
+    <info>
+        <language>en-CA</language>
+        <category>Met</category>
+        <event>extreme cold</event>
+        <responseType>Monitor</responseType>
+        <urgency>Expected</urgency>
+        <severity>Severe</severity>
+        <certainty>Likely</certainty>
+        <audience>general public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>temperature</value>
+        </eventCode>
+        <effective>2024-01-08T16:55:30-00:00</effective>
+        <expires>2024-01-09T08:54:37-00:00</expires>
+        <senderName>Environment Canada</senderName>
+        <headline>extreme cold warning in effect</headline>
+        <description>
+Extreme cold wind chill values near minus 45 are expected tonight.
+
+Some areas will see wind chill values near minus 45 or colder continue through the week.
+
+###
+
+Extreme cold puts everyone at risk.
+
+Risks are greater for young children, older adults, people with chronic illnesses, people working or exercising outdoors, and those without proper shelter.
+
+Extreme cold warnings are issued when very cold temperatures or wind chill creates an elevated risk to health such as frost bite and hypothermia.
+
+Please continue to monitor alerts and forecasts issued by Environment Canada. To report severe weather, send an email to SKstorm@ec.gc.ca or tweet reports using #SKStorm.
+</description>
+        <instruction>
+If it’s too cold for you to stay outside, it’s too cold for your pet to stay outside.
+</instruction>
+        <web>https://weather.gc.ca/</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>warning</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20240108165437203/WW_14_74_CWWG/ECW/1534440561185831500202401070501_WW_14_74_CWWG/actual/en_proper_complete_c-fr_proper_complete_c/NinJo</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:2217 M:10786 C:11600</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>extreme cold warning</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>Northern Saskatchewan</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>WW_14_74_CWWG</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value />
+        </parameter>
+        <area>
+            <areaDesc>Fond-du-Lac</areaDesc>
+            <polygon>59.9996,-108.0496 60.0172,-107.2378 59.9992,-106.4297 59.2777,-106.4033 58.3999,-106.4297 58.3999,-108.0497 59.1865,-108.08 59.9996,-108.0496</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>068210</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718090</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718824</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718833</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718846</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718847</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Stony Rapids and Black Lake</areaDesc>
+            <polygon>59.9992,-106.4297 60.0171,-105.63 59.9995,-104.8657 58.3999,-104.8657 58.3999,-106.4297 59.2729,-106.4546 59.9992,-106.4297</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>068220</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718090</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718100</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718823</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718828</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Cree Lake - Key Lake</areaDesc>
+            <polygon>56.1199,-104.8658 56.1199,-105.3779 56.1199,-106.7528 56.1199,-108.0497 56.7472,-108.0786 57.409,-108.0497 58.3999,-108.0497 58.3999,-106.4297 58.3999,-104.8657 57.0615,-104.8658 56.1199,-104.8658</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>068400</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718090</value>
+            </geocode>
+        </area>
+    </info>
+    <info>
+        <language>fr-CA</language>
+        <category>Met</category>
+        <event>froid extrême</event>
+        <responseType>Monitor</responseType>
+        <urgency>Expected</urgency>
+        <severity>Severe</severity>
+        <certainty>Likely</certainty>
+        <audience>grand public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>temperature</value>
+        </eventCode>
+        <effective>2024-01-08T16:55:30-00:00</effective>
+        <expires>2024-01-09T08:54:37-00:00</expires>
+        <senderName>Environnement Canada</senderName>
+        <headline>avertissement de froid extrême en vigueur</headline>
+        <description>
+On prévoit un refroidissement éolien extrême de près de moins 45 ce soir et cette nuit.
+
+Dans certains secteurs, un refroidissement éolien de près de moins 45 ou plus intense persistera toute la semaine.
+
+###
+
+Le froid extrême affecte tout le monde.
+
+Les risques sont plus grands pour les jeunes enfants, les personnes âgées, les personnes souffrant de maladies chroniques et celles qui travaillent ou font de l’exercice à l’extérieur.
+
+Un avertissement de froid extrême est émis lorsque le refroidissement éolien ou les températures très froides présentent un danger élevé pour la santé (engelure, hypothermie, etc.).
+
+Veuillez continuer à surveiller les alertes et les prévisions émises par Environnement Canada. Pour signaler du temps violent, envoyez un courriel à meteoSK@ec.gc.ca ou publiez un gazouillis en utilisant le mot-clic #SKMeteo.
+</description>
+        <instruction>
+S’il fait trop froid pour vous dehors, il en va de même pour votre animal de compagnie.
+</instruction>
+        <web>https://meteo.gc.ca/</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>warning</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20240108165437203/WW_14_74_CWWG/ECW/1534440561185831500202401070501_WW_14_74_CWWG/actual/en_proper_complete_c-fr_proper_complete_c/NinJo</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:2217 M:10786 C:11600</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>avertissement de froid extrême</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>nord de la Saskatchewan</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>WW_14_74_CWWG</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value />
+        </parameter>
+        <area>
+            <areaDesc>Fond-du-Lac</areaDesc>
+            <polygon>59.9996,-108.0496 60.0172,-107.2378 59.9992,-106.4297 59.2777,-106.4033 58.3999,-106.4297 58.3999,-108.0497 59.1865,-108.08 59.9996,-108.0496</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>068210</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718090</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718824</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718833</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718846</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718847</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Stony Rapids et Black Lake</areaDesc>
+            <polygon>59.9992,-106.4297 60.0171,-105.63 59.9995,-104.8657 58.3999,-104.8657 58.3999,-106.4297 59.2729,-106.4546 59.9992,-106.4297</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>068220</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718090</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718100</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718823</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718828</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Cree Lake - lac Key</areaDesc>
+            <polygon>56.1199,-104.8658 56.1199,-105.3779 56.1199,-106.7528 56.1199,-108.0497 56.7472,-108.0786 57.409,-108.0497 58.3999,-108.0497 58.3999,-106.4297 58.3999,-104.8657 57.0615,-104.8658 56.1199,-104.8658</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>068400</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>4718090</value>
+            </geocode>
+        </area>
+    </info>
+<Signature Id="NAADS Signature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><DigestValue>vCREF1eYfecSbl6bMdCynHCIeoprzumGeip0HMYXJOg=</DigestValue></Reference></SignedInfo><SignatureValue>anrcrgqMDUVS9OGiQrdDl0+ufY80yD4JeLvh1KS5xeQKhM7rI0yeAjziUNDJnSlAduzKKd362whb80t6qAbtnaF/Uo8GhrqgC2WF9+GE1gp/dT0uautEvlUUc3KNYxJt2G3qB5YyLvbEGufUDmhUbQd2g6/QgVExGHjR5qfrNZKg8Z2qwXdUNBjsPsPCfBGFyKPTiVzSbcY9M2/rnaFEOmsKtKBbM2QJfcODM3RPFx5+EfWHw57MZW/VEmBceLVS++ut139CKI6gzycGB6UqIwTHvf2S1ncvPFjJZUv3qTVC/yiBLafNiwDw6jGBYjKxAUlvXz1+PMNI7+ISip74bA==</SignatureValue><KeyInfo><X509Data><X509Certificate>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</X509Certificate></X509Data></KeyInfo><Object xmlns=""><SignatureProperties><SignatureProperty Id="NAADS-DSS1" Target="https://dss1.naad-adna.pelmorex.com"><xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd" /></SignatureProperty><SignatureProperty Id="NAADS-DSS2" Target="https://dss2.naad-adna.pelmorex.com"><xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd" /></SignatureProperty></SignatureProperties></Object></Signature><Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="Environment Canada">
+<SignedInfo>
+<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+<SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+<Reference URI="">
+<Transforms>
+<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+</Transforms>
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+<DigestValue>vCREF1eYfecSbl6bMdCynHCIeoprzumGeip0HMYXJOg=</DigestValue>
+</Reference>
+</SignedInfo>
+<SignatureValue>kOPvNc3ZAFkYJM3FoKXV5hB+rQKIBBbRA5OHDfZAar/RxNx27gsQ4/LPlChrugBS
+AEqxFS6sre5/8fkYAxF35DMINQjkKNOaDBO0Akqmnw3xkifw0cjzoHVTbBtOK8fV
+gqpVAuFumBMEDTETQA7f80KLNJbLU8etKVe0NIWEZ4+dkdxR1D1sJxPhk+XvirKg
+QbomFwg59+axGUnsH20qwFiJ9sT4F7mLddQ9EMwpMLmcoCYDe+ej6ELDYVgZcOi0
+lh06eJjoRxgxGi3XDC6naxypDJUjJFkJlw0UjqTWi12rBfuxEr/Z1Y9koqR8PoV8
+qV1mJ6gyrkvqe91W1NTrtQ==</SignatureValue>
+<KeyInfo>
+<X509Data>
+<X509Certificate>MIIHQDCCBiigAwIBAgIQauIRkpOPcGViI+LoZHWDFzANBgkqhkiG9w0BAQsFADCB
+ujELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xKDAmBgNVBAsT
+H1NlZSB3d3cuZW50cnVzdC5uZXQvbGVnYWwtdGVybXMxOTA3BgNVBAsTMChjKSAy
+MDEyIEVudHJ1c3QsIEluYy4gLSBmb3IgYXV0aG9yaXplZCB1c2Ugb25seTEuMCwG
+A1UEAxMlRW50cnVzdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEwxSzAeFw0y
+MzA0MjcxNDEyNDVaFw0yNDA1MDcxNDEyNDVaMGwxCzAJBgNVBAYTAkNBMQ8wDQYD
+VQQIEwZRdWViZWMxETAPBgNVBAcTCEdhdGluZWF1MR8wHQYDVQQKExZTaGFyZWQg
+U2VydmljZXMgQ2FuYWRhMRgwFgYDVQQDDA8qLndlYXRoZXIuZ2MuY2EwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOSYFvWlJgQgD5twPwuMqUXQB8Raj6
+enUh60KlOqYi2Moja8qBMhANS848XjHd+OlTNKv5J9YT6OoxTqcRe60e3nWYF6/u
+Plu+O4KWOO8x6jWbttEn5G7j7V35yaWXqP0LObVrQLDMYX3D4xsm+MJK7eyGJz8k
+AJAJYONS/+dp7/0jlrzlTjyuT4Uk50zVDvTGxiYpgjPfuXG9Bke5q8Cju4EEgAfW
+1I2+67Is7ae2fTjhvPH+w+L4iujk1ucmkrZqd2Norr8eeLebvDiSNxV4FkdzUZKQ
+TTycHQb1u/79WGgRKCH+nPYTzW/l/muRz59V0LKTQOlFmq8H45fmSYWZAgMBAAGj
+ggONMIIDiTAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRlq9u/A7i58xA3Eb4DmYis
+FzYwKTAfBgNVHSMEGDAWgBSConB03bxTP8971PfNf6dgxgpMvzBoBggrBgEFBQcB
+AQRcMFowIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3NwLmVudHJ1c3QubmV0MDMGCCsG
+AQUFBzAChidodHRwOi8vYWlhLmVudHJ1c3QubmV0L2wxay1jaGFpbjI1Ni5jZXIw
+MwYDVR0fBCwwKjAooCagJIYiaHR0cDovL2NybC5lbnRydXN0Lm5ldC9sZXZlbDFr
+LmNybDCBnQYDVR0RBIGVMIGSgg8qLndlYXRoZXIuZ2MuY2GCDXdlYXRoZXIuZ2Mu
+Y2GCC21ldGVvLmdjLmNhgg0qLm1ldGVvLmdjLmNhghUqLmFscGhhLndlYXRoZXIu
+Z2MuY2GCEyouYWxwaGEubWV0ZW8uZ2MuY2GCFCouYmV0YS53ZWF0aGVyLmdjLmNh
+ghIqLmJldGEubWV0ZW8uZ2MuY2EwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQG
+CCsGAQUFBwMBBggrBgEFBQcDAjBMBgNVHSAERTBDMDcGCmCGSAGG+mwKAQUwKTAn
+BggrBgEFBQcCARYbaHR0cHM6Ly93d3cuZW50cnVzdC5uZXQvcnBhMAgGBmeBDAEC
+AjCCAXsGCisGAQQB1nkCBAIEggFrBIIBZwFlAHUAc9meiRtMlnigIH1HneayxhzQ
+UV5xGSqMa4AQesF3crUAAAGHww80IQAABAMARjBEAiAkpowR7bbTYLp4v/tw0Fav
+HHP8mm2i6/ecg03yasJkkgIga1hmg5g/Gq97+HOCDwjsy77aS8+PirSarIO6/X1H
+EfkAdQA7U3d1Pi25gE6LMFsG/kA7Z9hPw/THvQANLXJv4frUFwAAAYfDDzQcAAAE
+AwBGMEQCIBKVCiUTam6W9Y+5TiuhpsxVVx2TYVz9SebYPuB4XyHUAiB4Y9ZXnkOt
+rJJAaw4im3kY7OWZG40xPUL1ygK8trUsIAB1AO7N0GTV2xrOxVy3nbTNE6Iyh0Z8
+vOzew1FIWUZxH7WbAAABh8MPNF0AAAQDAEYwRAIgYbZkNJlz8a4d35p4+wLg0h5P
+WtFyyBEqy06IoSV7UWICIH65mirJoLVsZFK7kXW3IJF4+xlgATBcr/n2ImBLSWug
+MA0GCSqGSIb3DQEBCwUAA4IBAQCcp2dfEDsCzJHpMsTF1hlEyYPTgmfrSbgegWT3
+76r0r7XGY7qIym53HE6Pk3Q7BgsegpV+pS8UMWx1m9x0ZcUQX11gMBlNLv0WCSBe
+4/9BOaGc2deYrXsRAmmFJwqvgegcBSQhg4zZSoSSVqJPhaJ1WYWqDbJW+doY15xy
+JPm7UbZqCAbzm3/c36N9j/Zu6h+LA9rhltfwYoWCyqlBtJCRrs7K7KEP+dLtsoby
++AhyY+3dK2IB4G7v5Qbxa88WKV9EsXXMpvl0v/kXSDjIHJwRPyOf1OKU9x2Mc3Mx
+KEgzSJ0GUUW0RqqCVWZ14TBoxUq1jJw4m12zSF+PYFpSH6g5</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature></alert>

@@ -1,3 +1,58 @@
 {
-  "webhook_url": ""
+  "log_level": 1,
+  "general": {
+    "test_mode": true,
+    "base_url": "http://localhost",
+    "cookie_domain": "localhost",
+    "cookie_secure": false,
+    "cookie_name": "icad_cap_alerts",
+    "cookie_path": "/"
+  },
+  "canada_cap_stream": {
+    "enabled": 1,
+    "save_xml": 1,
+    "save_map": 1,
+    "save_json": 0,
+    "hosts": [
+      "streaming1.naad-adna.pelmorex.com",
+      "streaming2.naad-adna.pelmorex.com"
+    ],
+    "port": 8080,
+    "heartbeat_interval": 60,
+    "max_heartbeat_delay": 120,
+    "reconnect_delay": 5,
+    "max_fetch_retries": 3,
+    "namespaces": {
+      "cap": "urn:oasis:names:tc:emergency:cap:1.2"
+    },
+    "archive_hosts": [
+      "http://capcp1.naad-adna.pelmorex.com",
+      "http://capcp2.naad-adna.pelmorex.com"
+    ],
+    "alert_areas": [
+      {
+        "area_id": 1,
+        "area_name": "",
+        "sgc_codes": [],
+        "webhook_url": "",
+        "webhook_headers": "",
+        "alert_broadcast": {
+          "input_alert_audio_sink": "ca_alert_in",
+          "input_stream_audio_sink": "ca_broadcast_in",
+          "output_audio_sink": "ca_audio_out",
+          "silence_threshold": 54,
+          "silence_duration": 4
+        },
+        "icecast": {
+          "bitrate": 16,
+          "host": "192.168.1.44",
+          "port": 7778,
+          "mount": "/testing_ca_alert",
+          "password": "z5BA30JjTdbjk12veh",
+          "stream_name":  "CA Alert Testing",
+          "description": "CA Alet Testing"
+        }
+      }
+    ]
+  }
 }
