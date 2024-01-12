@@ -32,25 +32,44 @@
     "alert_areas": [
       {
         "area_id": 1,
-        "area_name": "",
-        "sgc_codes": [],
+        "area_name": "Canada Wide",
+        "sgc_codes": [
+          10,
+          11,
+          12,
+          13,
+          24,
+          35,
+          46,
+          47,
+          48,
+          59,
+          60,
+          61
+        ],
         "webhook_url": "",
         "webhook_headers": "",
+        "rdio": {
+          "enabled": 0,
+          "api_url": "https://example.com/api/call-upload",
+          "api_auth_token": "3e6701bf-1c1f-4dfd-b28c-117759d4203c",
+          "system_id": 234,
+          "talkgroup_id": 999
+        },
         "alert_broadcast": {
+          "enabled": 0,
           "input_alert_audio_sink": "ca_alert_in",
           "input_stream_audio_sink": "ca_broadcast_in",
           "output_audio_sink": "ca_audio_out",
-          "silence_threshold": 54,
-          "silence_duration": 4
-        },
-        "icecast": {
-          "bitrate": 16,
-          "host": "192.168.1.44",
-          "port": 7778,
-          "mount": "/testing_ca_alert",
-          "password": "z5BA30JjTdbjk12veh",
-          "stream_name":  "CA Alert Testing",
-          "description": "CA Alet Testing"
+          "icecast": {
+            "bitrate": 16,
+            "host": "",
+            "port": 7778,
+            "mount": "",
+            "password": "",
+            "stream_name": "",
+            "description": ""
+          }
         }
       }
     ]

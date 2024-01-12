@@ -9,5 +9,5 @@ Werkzeug~=3.0.1
 gTTS~=2.5.0
 pydub~=0.25.1
 pulsectl~=23.5.2
-simpleaudio~=1.0.4
+gunicorn~=21.2.0
 PyGObject~=3.46.0

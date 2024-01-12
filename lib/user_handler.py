@@ -1,5 +1,9 @@
+import logging
+
 from flask import session
 from werkzeug.security import check_password_hash
+
+module_logger = logging.getLogger('icad_cap_alerts.users')
 
 
 def authenticate_user(db, username, password):
@@ -10,7 +14,7 @@ def authenticate_user(db, username, password):
     if not user_result.get("success") or not user_result.get("result"):
         return {"success": False, "message": "Invalid Username or Password"}
 
-    if not check_password_hash(user_result["result"][0], password):
+    if not check_password_hash(user_result["result"]["password"], password):
         return {"success": False, "message": "Invalid Username or Password"}
 
     session['logged_in'] = True

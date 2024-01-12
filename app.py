@@ -6,7 +6,6 @@ import traceback
 from functools import wraps
 
 from flask import Flask, request, session, redirect, url_for, render_template, flash, jsonify
-from werkzeug.security import check_password_hash
 
 from lib.audio_relay_handler import AudioRelay
 from lib.canada_cap_alert_handler import get_alerts, process_alert
@@ -189,16 +188,17 @@ if config_data["canada_cap_stream"].get("enabled", 0) == 1:
 
 area_configs = config_data["canada_cap_stream"].get("alert_areas", [])
 for area in area_configs:
-    logger.info(f"Initializing audio for {area.get('area_name')}")
-    AudioRelay(config_data, area.get("area_id"), area["alert_broadcast"].get('input_alert_audio_sink'),
-               area["alert_broadcast"].get('input_stream_audio_sink'),
-               area["alert_broadcast"].get('output_audio_sink')).start()
-    time.sleep(3)
-    try:
-        IcecastStreamer(area).start()
-    except Exception as e:
-        traceback.print_exc()
-        logger.error(e)
+    if area["alert_broadcast"].get("enabled", 0) == 1:
+        logger.info(f"Initializing audio for {area.get('area_name')}")
+        AudioRelay(config_data, area.get("area_id"), area["alert_broadcast"].get('input_alert_audio_sink'),
+                   area["alert_broadcast"].get('input_stream_audio_sink'),
+                   area["alert_broadcast"].get('output_audio_sink')).start()
+        time.sleep(3)
+        try:
+            IcecastStreamer(area["alert_broadcast"]).start()
+        except Exception as e:
+            traceback.print_exc()
+            logger.error(e)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8002, debug=False)

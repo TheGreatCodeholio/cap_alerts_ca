@@ -21,7 +21,7 @@ class IcecastStreamer:
         if not self.icecast_config:
             raise Exception("Missing icecast config")
 
-        self.alert_broadcast_config = area_config.get("alert_broadcast", {})
+        self.alert_broadcast_config = area_config
         if not self.alert_broadcast_config:
             raise Exception("Missing Broadcast Config")
 

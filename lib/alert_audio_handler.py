@@ -1,10 +1,36 @@
 import logging
+import os
 import subprocess
 import time
 
 from lib.pulseaudio_thread_shared_state import pulseaudio_shared_state
 
 module_logger = logging.getLogger("icad_cap_alerts.alert_audio_playback")
+
+
+def convert_mp3_m4a(mp3_file_path):
+    if not os.path.isfile(mp3_file_path):
+        module_logger.error(f"MP3 file does not exist: {mp3_file_path}")
+        return f"MP3 file does not exist: {mp3_file_path}"
+
+    module_logger.info(f'Converting MP3 to Mono M4A at 8k')
+
+    command = f"ffmpeg -y -i {mp3_file_path} -af aresample=resampler=soxr -ar 8000 -c:a aac -ac 1 -b:a 8k {mp3_file_path.replace('.mp3', '.m4a')}"
+
+    try:
+        output = subprocess.check_output(command, shell=True, text=True, stderr=subprocess.STDOUT)
+        module_logger.debug(output)
+        module_logger.info(f"Successfully converted MP3 to M4A for file: {mp3_file_path.replace('.mp3', '.m4a')}")
+    except subprocess.CalledProcessError as e:
+        error_message = f"Failed to convert MP3 to M4A: {e.output}"
+        module_logger.critical(error_message)
+        return None
+    except Exception as e:
+        error_message = f"An unexpected error occurred during conversion: {str(e)}"
+        module_logger.critical(error_message, exc_info=True)
+        return None
+
+    return True
 
 
 def play_mp3_on_sink(file_path, area_config):

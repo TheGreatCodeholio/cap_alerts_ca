@@ -11,7 +11,9 @@ import requests
 from lib.alert_audio_handler import play_mp3_on_sink
 from lib.ca_resource_handler import process_resources
 from lib.mapping_handler import create_map_image
+from lib.rdio_handler import upload_to_rdio_ca
 from lib.sqlite_handler import SQLiteDatabase
+from lib.webhook_handler import post_to_webhook_ca
 
 module_logger = logging.getLogger('icad_cap_alerts.canada_cap_alerts')
 alert_path = os.path.join(os.getcwd(), "static/alerts")
@@ -65,10 +67,8 @@ def process_alert(db, config_data, xml_data):
                                              alert_json[x].get("headline"), alert_json[x].get("description"),
                                              alert_json[x].get("instruction"))
             if audio >= 1:
-                alert_json[x][
-                    "mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{filename}/{filename}_{x.split("-")[0]}.mp3'
-                alert_json[x][
-                    "mp3_local_path"] = f'{os.path.join(os.getcwd(), "static/alerts")}/{filename}/{filename}_{x.split("-")[0]}.mp3'
+                alert_json[x]["mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{identifier}/{identifier}_{x.split("-")[0]}.mp3'
+                alert_json[x]["mp3_local_path"] = os.path.join(alert_folder_path, f"{identifier}_{x.split('-')[0]}.mp3")
 
             dispatch_alerts(config_data["canada_cap_stream"].get("alert_areas", []), alert_folder_path, identifier, alert_json[x])
 
@@ -165,6 +165,7 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
             "eventCodes": {get_text(ec.find('ns:valueName', namespace)): get_text(ec.find('ns:value', namespace)) for ec
                            in
                            info.findall('ns:eventCode', namespace)},
+            "sent": get_text(root.find('ns:sent', namespace)),
             "effective": get_text(info.find('ns:effective', namespace)),
             "expires": get_text(info.find('ns:expires', namespace)),
             "sender_name": get_text(info.find('ns:senderName', namespace)),
@@ -178,7 +179,8 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
             "resources": [],
             "sgc_codes": [],
             "mp3_local_path": "",
-            "mp3_url": ""
+            "mp3_url": "",
+            "mp3_duration": 0
         }
 
         for res in info.findall('ns:resource', namespace):
@@ -240,10 +242,14 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json):
                     break
 
             if filter_match:
-                module_logger.info("Post To Webhook")
-                if info_json.get("mp3_local_path"):
+                Thread(target=post_to_webhook_ca, args=(area_config, info_json))
+                if info_json.get("mp3_local_path") and area.get("alert_broadcast", {}).get("enabled", 0) == 1:
                     mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
                     Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
+                if area.get("rdio", {}).get("enabled", 0) == 1:
+                    mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
+                    Thread(target=upload_to_rdio_ca, args=(mp3_path, area, info_json)).start()
+
 
 
 def to_epoch(date_str):

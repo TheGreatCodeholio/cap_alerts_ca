@@ -4,7 +4,7 @@ import sqlite3
 
 from werkzeug.security import generate_password_hash
 
-module_logger = logging.getLogger('ap_frontend.sqlite')
+module_logger = logging.getLogger('icad_cap_alerts.sqlite')
 
 
 class SQLiteDatabase:
