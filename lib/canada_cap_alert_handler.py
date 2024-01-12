@@ -70,7 +70,7 @@ def process_alert(db, config_data, xml_data):
                 alert_json[x]["mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{identifier}/{identifier}_{x.split("-")[0]}.mp3'
                 alert_json[x]["mp3_local_path"] = os.path.join(alert_folder_path, f"{identifier}_{x.split('-')[0]}.mp3")
 
-            dispatch_alerts(config_data["canada_cap_stream"].get("alert_areas", []), alert_folder_path, identifier, alert_json[x])
+            dispatch_alerts(config_data["canada_cap_stream"].get("alert_areas", []), alert_folder_path, identifier, alert_json[x], alert_json)
 
     db_result = insert_alert_data(db, alert_json)
     if not db_result.get("success"):
@@ -218,7 +218,7 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
     return alert_dict
 
 
-def dispatch_alerts(area_config, alert_folder_path, identifier, info_json):
+def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert_json_full):
     module_logger.debug("Starting Dispatch")
     for area in area_config:
         if area.get("language", "en") == info_json.get("language"):
@@ -242,7 +242,7 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json):
                     break
 
             if filter_match:
-                Thread(target=post_to_webhook_ca, args=(area, info_json)).start()
+                Thread(target=post_to_webhook_ca, args=(area, alert_json_full)).start()
                 if info_json.get("mp3_local_path") and area.get("alert_broadcast", {}).get("enabled", 0) == 1:
                     mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
                     Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
