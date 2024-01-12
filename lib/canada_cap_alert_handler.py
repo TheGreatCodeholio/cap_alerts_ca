@@ -242,7 +242,7 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json):
                     break
 
             if filter_match:
-                Thread(target=post_to_webhook_ca, args=(area_config, info_json)).start()
+                Thread(target=post_to_webhook_ca, args=(area, info_json)).start()
                 if info_json.get("mp3_local_path") and area.get("alert_broadcast", {}).get("enabled", 0) == 1:
                     mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
                     Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
