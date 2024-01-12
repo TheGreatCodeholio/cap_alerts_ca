@@ -73,5 +73,8 @@
         }
       }
     ]
-  }
+  },
+  "sqlite": {
+        "database_path": "icad_cap_warn.db"
+    }
 }
