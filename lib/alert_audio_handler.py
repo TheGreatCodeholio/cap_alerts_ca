@@ -15,7 +15,7 @@ def convert_mp3_m4a(mp3_file_path):
 
     module_logger.info(f'Converting MP3 to Mono M4A at 8k')
 
-    command = f"ffmpeg -y -i {mp3_file_path} -af aresample=resampler=soxr -ar 8000 -c:a aac -ac 1 -b:a 8k {mp3_file_path.replace('.mp3', '.m4a')}"
+    command = f"ffmpeg -y -i {mp3_file_path} -af aresample=resampler=soxr -ar 44100 -c:a aac -ac 2 -b:a 32k {mp3_file_path.replace('.mp3', '.m4a')}"
 
     try:
         output = subprocess.check_output(command, shell=True, text=True, stderr=subprocess.STDOUT)
