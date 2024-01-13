@@ -12,16 +12,16 @@ module_logger = logging.getLogger('icad_cap_alerts.rdio')
 def upload_to_rdio_ca(mp3_path, area_config, alert_info_json):
     module_logger.info(f'Uploading To RDIO: {str(area_config["rdio"].get("api_url", ""))}')
 
-    convert_result = convert_mp3_m4a(mp3_path)
+    #convert_result = convert_mp3_m4a(mp3_path)
 
-    m4a_path = mp3_path.replace(".mp3", ".m4a")
+    #m4a_path = mp3_path
 
-    if not os.path.exists(m4a_path) or os.path.getsize(m4a_path) == 0 or not convert_result:
-        module_logger.error(f"Audio file does not exist or is empty: {m4a_path}")
+    if not os.path.exists(mp3_path) or os.path.getsize(mp3_path) == 0:
+        module_logger.error(f"Audio file does not exist or is empty: {mp3_path}")
         return
 
     try:
-        with open(mp3_path.replace(".mp3", ".m4a"), 'rb') as audio_file:
+        with open(mp3_path, 'rb') as audio_file:
             data = {
                 'key': area_config["rdio"].get("api_auth_token", ""),
                 'dateTime': alert_info_json.get('sent'),
@@ -30,7 +30,7 @@ def upload_to_rdio_ca(mp3_path, area_config, alert_info_json):
                 'talkgroupGroup': 'Alerts',
                 'talkgroupLabel': alert_info_json.get('sender_name'),
                 'talkgroupTag': alert_info_json.get('sender_name'),
-                'audio': (mp3_path.replace(".mp3", ".m4a").split('/')[-1], audio_file, 'audio/x-m4a'),
+                'audio': (mp3_path.split('/')[-1], audio_file, 'audio/mpeg'),
 
             }
             r = requests.post(area_config["rdio"].get("api_url", ""), files=data)
