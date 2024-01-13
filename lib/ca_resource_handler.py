@@ -41,7 +41,7 @@ def save_audio(resource, identifier, language, alert_folder_path):
 
 def generate_tts_audio(identifier, language, alert_folder_path, headline, description, area_list):
     start_time = time.time()
-    logging.debug(f"Starting generate_tts_audio for {identifier}")
+    module_logger.debug(f"Starting generate_tts_audio for {identifier}")
     language = language.split("-")[0]
     alert_signal_file = os.path.join(os.getcwd(), 'var/audio_clips/ca_alert.mp3')
     if os.path.exists(os.path.join(os.getcwd(), 'var/audio_clips/ca_alert_alt.mp3')):
@@ -53,9 +53,12 @@ def generate_tts_audio(identifier, language, alert_folder_path, headline, descri
     module_logger.warning(area_list)
     areas = ', '.join(set(area.split("-")[0].strip() for area in area_list))
 
-    text_for_gtts = f'Alert for {areas} ' if areas else ""
-    text_for_gtts += f'{headline} ' if headline else ""
+    #text_for_gtts = f'Alert for {areas} ' if areas else ""
+    text_for_gtts = f'{headline} ' if headline else ""
     text_for_gtts += f'{description}' if description and description != "###" else ""
+
+    module_logger.debug(f"Requesting Text To Speech: {text_for_gtts}")
+
     tts = gTTS(text_for_gtts, lang=language)
 
     tts.write_to_fp(gtts_buf)
@@ -68,12 +71,12 @@ def generate_tts_audio(identifier, language, alert_folder_path, headline, descri
     #final_audio = normalize_audio(alert_audio_full)
     alert_audio_full.export(os.path.join(alert_folder_path, f"{identifier}_{language}.mp3"))
     end_time = time.time()
-    logging.debug(f"Completed generate_tts_audio for {identifier} in {end_time - start_time:.2f} seconds")
+    module_logger.debug(f"Completed generate_tts_audio for {identifier} in {end_time - start_time:.2f} seconds")
 
 
 def normalize_audio(audio_segment, target_dbfs=-20.0):
     start_time = time.time()
-    logging.debug("Starting normalize_audio")
+    module_logger.debug("Starting normalize_audio")
     """
     Normalize an audio file to a target dBFS.
 
@@ -88,6 +91,6 @@ def normalize_audio(audio_segment, target_dbfs=-20.0):
     # Apply the gain
     normalized_audio = audio_segment.apply_gain(change_in_dBFS)
     end_time = time.time()
-    logging.debug(f"Completed normalize_audio in {end_time - start_time:.2f} seconds")
+    module_logger.debug(f"Completed normalize_audio in {end_time - start_time:.2f} seconds")
 
     return normalized_audio
