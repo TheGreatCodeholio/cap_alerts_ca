@@ -48,6 +48,7 @@ class AudioRelay:
         try:
             with pulsectl.Pulse('loopback_creator') as pulse:
                 module_id = pulse.module_load('module-loopback', f'source={source_name} sink={sink_name}')
+                pulse.mute(module_id, False)
             return module_id
         except Exception as e:
             module_logger.error(f"Error enabling loopback: {e}")
@@ -63,6 +64,7 @@ class AudioRelay:
     def create_null_sink(self, sink_name):
         with pulsectl.Pulse('sink_creator') as pulse:
             module_id = pulse.module_load('module-null-sink', f'sink_name={sink_name}')
+            pulse.mute(module_id, False)
             return module_id
 
     def destroy_sinks(self, sink_list):
