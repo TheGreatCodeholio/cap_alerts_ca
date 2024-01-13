@@ -44,11 +44,26 @@ class AudioRelay:
                 return True
         return False
 
+    def unmute_sink_by_name(self, pulse, sink_name):
+        """ Unmute a sink based on its name. """
+        for sink in pulse.sink_list():
+            if sink.name == sink_name and sink.mute == 1:
+                pulse.mute(sink, 0)
+                module_logger.info(f"Unmuted sink: {sink_name}")
+
+    def unmute_source_by_name(self, pulse, source_name):
+        """ Unmute a source based on its name. """
+        for source in pulse.source_list():
+            if source.name == source_name and source.mute == 1:
+                pulse.mute(source, 0)
+                module_logger.info(f"Unmuted source: {source_name}")
+
     def enable_loopback_for_source(self, source_name, sink_name):
         try:
             with pulsectl.Pulse('loopback_creator') as pulse:
                 module_id = pulse.module_load('module-loopback', f'source={source_name} sink={sink_name}')
-                pulse.mute(module_id, False)
+                self.unmute_source_by_name(pulse, source_name)
+                self.unmute_sink_by_name(pulse, sink_name)
             return module_id
         except Exception as e:
             module_logger.error(f"Error enabling loopback: {e}")
@@ -64,7 +79,7 @@ class AudioRelay:
     def create_null_sink(self, sink_name):
         with pulsectl.Pulse('sink_creator') as pulse:
             module_id = pulse.module_load('module-null-sink', f'sink_name={sink_name}')
-            pulse.mute(module_id, False)
+            self.unmute_sink_by_name(pulse, sink_name)
             return module_id
 
     def destroy_sinks(self, sink_list):
