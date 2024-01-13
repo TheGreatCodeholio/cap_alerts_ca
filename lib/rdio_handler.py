@@ -1,4 +1,5 @@
 import logging
+import os.path
 import traceback
 
 import requests
@@ -12,7 +13,11 @@ def upload_to_rdio_ca(mp3_path, area_config, alert_info_json):
     module_logger.info(f'Uploading To RDIO: {str(area_config["rdio"].get("api_url", ""))}')
 
     convert_result = convert_mp3_m4a(mp3_path)
-    if not convert_result:
+
+    m4a_path = mp3_path.replace(".mp3", ".m4a")
+
+    if not os.path.exists(m4a_path) or os.path.getsize(m4a_path) == 0 or not convert_result:
+        module_logger.error(f"Audio file does not exist or is empty: {m4a_path}")
         return
 
     try:

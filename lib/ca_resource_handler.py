@@ -65,8 +65,8 @@ def generate_tts_audio(identifier, language, alert_folder_path, headline, descri
     voice_audio_segment = pydub.AudioSegment.from_file(gtts_buf, format="mp3")
 
     alert_audio_full = alert_audio_segment + voice_audio_segment
-    final_audio = normalize_audio(alert_audio_full)
-    final_audio.export(os.path.join(alert_folder_path, f"{identifier}_{language}.mp3"))
+    #final_audio = normalize_audio(alert_audio_full)
+    alert_audio_full.export(os.path.join(alert_folder_path, f"{identifier}_{language}.mp3"))
     end_time = time.time()
     logging.debug(f"Completed generate_tts_audio for {identifier} in {end_time - start_time:.2f} seconds")
 
