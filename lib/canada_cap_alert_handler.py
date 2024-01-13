@@ -65,12 +65,14 @@ def process_alert(db, config_data, xml_data):
         if "-CA" in x:
             audio, image = process_resources(alert_json[x].get("resources"), identifier, x, alert_folder_path,
                                              alert_json[x].get("headline"), alert_json[x].get("description"),
-                                             alert_json[x].get("instruction"))
+                                             alert_json[x].get("area_list", []))
             if audio >= 1:
-                alert_json[x]["mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{identifier}/{identifier}_{x.split("-")[0]}.mp3'
+                alert_json[x][
+                    "mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{identifier}/{identifier}_{x.split("-")[0]}.mp3'
                 alert_json[x]["mp3_local_path"] = os.path.join(alert_folder_path, f"{identifier}_{x.split('-')[0]}.mp3")
 
-            dispatch_alerts(config_data["canada_cap_stream"].get("alert_areas", []), alert_folder_path, identifier, alert_json[x], alert_json)
+            dispatch_alerts(config_data["canada_cap_stream"].get("alert_areas", []), alert_folder_path, identifier,
+                            alert_json[x], alert_json)
 
     db_result = insert_alert_data(db, alert_json)
     if not db_result.get("success"):
@@ -195,12 +197,15 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
 
             alert_dict[language]["resources"].append(resource_dict)
 
+        area_text = []
+
         for area in info.findall('ns:area', namespace):  # Loop through each area in your data
             area_dict = {
                 "areaDesc": get_text(area.find('ns:areaDesc', namespace)),
                 "polygon": [get_text(polygon) for polygon in area.findall('ns:polygon', namespace)],
                 "geocodes": {}
             }
+            area_text.append(get_text(area.find('ns:areaDesc', namespace)))
             for gc in area.findall('ns:geocode', namespace):
                 code_type = get_text(gc.find('ns:valueName', namespace))
                 code_value = get_text(gc.find('ns:value', namespace))
@@ -209,6 +214,7 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
                     alert_dict[language]["sgc_codes"].append(int(code_value))
 
             alert_dict[language]["areas"].append(area_dict)
+            alert_dict[language]["area_list"] = area_text
 
     if config_data["canada_cap_stream"].get("save_json", 0) == 1:
         alert_file_path = os.path.join(alert_folder_path, f"{filename}.json")
@@ -249,7 +255,6 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert
                 if area.get("rdio", {}).get("enabled", 0) == 1:
                     mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
                     Thread(target=upload_to_rdio_ca, args=(mp3_path, area, info_json)).start()
-
 
 
 def to_epoch(date_str):

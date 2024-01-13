@@ -11,7 +11,7 @@ module_logger = logging.getLogger("icad_cap_alerts.canada_resource_handler")
 
 
 def process_resources(resources, identifier, language, alert_folder_path, headline, description,
-                      instruction):
+                      area_list):
     audio = 0
     image = 0
     if len(resources) >= 1:
@@ -21,7 +21,7 @@ def process_resources(resources, identifier, language, alert_folder_path, headli
                 audio += 1
 
     if audio == 0:
-        generate_tts_audio(identifier, language, alert_folder_path, headline, description, instruction)
+        generate_tts_audio(identifier, language, alert_folder_path, headline, description, area_list)
         audio += 1
 
     return audio, image
@@ -38,7 +38,7 @@ def save_audio(resource, identifier, language, alert_folder_path):
         file.write(audio_data)
 
 
-def generate_tts_audio(identifier, language, alert_folder_path, headline, description, instruction):
+def generate_tts_audio(identifier, language, alert_folder_path, headline, description, area_list):
     language = language.split("-")[0]
     alert_signal_file = os.path.join(os.getcwd(), 'var/audio_clips/ca_alert.mp3')
     if os.path.exists(os.path.join(os.getcwd(), 'var/audio_clips/ca_alert_alt.mp3')):
@@ -47,7 +47,13 @@ def generate_tts_audio(identifier, language, alert_folder_path, headline, descri
     alert_audio_segment = pydub.AudioSegment.from_mp3(alert_signal_file)
 
     gtts_buf = io.BytesIO()
-    tts = gTTS(f"{headline} ... {description} ... {instruction}", lang=language)
+    module_logger.warning(area_list)
+    areas = ', '.join(set(area.split("-")[0].strip() for area in area_list))
+
+    text_for_gtts = f'Alert for {areas} ' if areas else ""
+    text_for_gtts += f'{headline} ' if headline else ""
+    text_for_gtts += f'{description}' if description and description != "###" else ""
+    tts = gTTS(text_for_gtts, lang=language)
 
     tts.write_to_fp(gtts_buf)
 

@@ -25,7 +25,7 @@ def upload_to_rdio_ca(mp3_path, area_config, alert_info_json):
                 'talkgroupGroup': 'Alerts',
                 'talkgroupLabel': alert_info_json.get('sender_name'),
                 'talkgroupTag': alert_info_json.get('sender_name'),
-                'audio': (mp3_path.replace(".mp3", ".m4a").split('/')[-1], audio_file, 'audio/mpeg'),
+                'audio': (mp3_path.replace(".mp3", ".m4a").split('/')[-1], audio_file, 'audio/x-m4a'),
 
             }
             r = requests.post(area_config["rdio"].get("api_url", ""), files=data)

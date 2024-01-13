@@ -14,9 +14,9 @@ module_logger = logging.getLogger("icad_cap_alerts.mapping")
 
 
 def create_map_image(config_data, alert_file_name, polygons, alert_folder_path):
-    desired_width_px = 1000  # Desired width in pixels
-    desired_height_px = 1000  # Desired height in pixels
-    dpi = 400
+    desired_width_px = 800  # Desired width in pixels
+    desired_height_px = 800  # Desired height in pixels
+    dpi = 300
 
     # Calculate the size in inches
     width_in = desired_width_px / dpi
