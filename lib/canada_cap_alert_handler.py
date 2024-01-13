@@ -67,7 +67,6 @@ def process_alert(db, config_data, xml_data):
                                              alert_json[x].get("headline"), alert_json[x].get("description"),
                                              alert_json[x].get("area_list", []))
             # add a short delay to make sure audio file created before sending alert
-            time.sleep(15)
             if audio >= 1:
                 alert_json[x][
                     "mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{identifier}/{identifier}_{x.split("-")[0]}.mp3'
@@ -250,14 +249,16 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert
                     break
 
             if filter_match:
-                Thread(target=post_to_webhook_ca, args=(area, alert_json_full)).start()
+                #Thread(target=post_to_webhook_ca, args=(area, alert_json_full)).start()
+                post_to_webhook_ca(area, alert_json_full)
                 if info_json.get("mp3_local_path") and area.get("alert_broadcast", {}).get("enabled", 0) == 1:
                     mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
-                    Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
+                    #Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
+                    play_mp3_on_sink(mp3_path, area)
                 if area.get("rdio", {}).get("enabled", 0) == 1:
                     mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
-                    Thread(target=upload_to_rdio_ca, args=(mp3_path, area, info_json)).start()
-
+                    #Thread(target=upload_to_rdio_ca, args=(mp3_path, area, info_json)).start()
+                    upload_to_rdio_ca(mp3_path, area, info_json)
 
 def to_epoch(date_str):
     """Convert ISO 8601 date strings to epoch time."""
