@@ -83,7 +83,7 @@ def wait_for_alert_inactive(area_id, max_wait_time=180):
 
 def play_audio(file_path, sink_name, area_id):
     module_logger.info(f"Playing Alert Audio on sink: {sink_name}")
-    command = ['mplayer', f'-ao', f'pulse::{sink_name}', file_path]
+    command = ['mplayer', '-af', 'volume=10:1', f'-ao', f'pulse::{sink_name}', file_path]
 
     try:
         pulseaudio_shared_state.pa_shared[area_id]["alert_active"] = True
