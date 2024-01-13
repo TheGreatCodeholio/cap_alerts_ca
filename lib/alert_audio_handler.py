@@ -82,16 +82,25 @@ def wait_for_alert_inactive(area_id, max_wait_time=180):
 
 
 def play_audio(file_path, sink_name, area_id):
-    """
-    Play audio file on the specified PulseAudio sink.
-
-    Args:
-        file_path (str): Path to the audio file.
-        sink_name (str): Name of the PulseAudio sink.
-        area_id (str): The area ID.
-    """
     module_logger.info(f"Playing Alert Audio on sink: {sink_name}")
-    pulseaudio_shared_state.pa_shared[area_id]["alert_active"] = True
-    command = f'mplayer -ao pulse::{sink_name} {file_path}'
-    subprocess.run(command.split(), capture_output=True, text=True)
-    pulseaudio_shared_state.pa_shared[area_id]["alert_active"] = False
+    command = ['mplayer', f'-ao', f'pulse::{sink_name}', file_path]
+
+    try:
+        pulseaudio_shared_state.pa_shared[area_id]["alert_active"] = True
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        pulseaudio_shared_state.pa_shared[area_id]["alert_active"] = False
+
+        # Log output on success
+        module_logger.debug(f"mplayer output: {result.stdout}")
+        return result.returncode
+
+    except subprocess.CalledProcessError as e:
+        # Log error details
+        module_logger.error(f"mplayer failed: {e.stderr}, Return Code: {e.returncode}")
+        return None
+    except (OSError, ValueError) as e:
+        module_logger.error(f"Error executing mplayer: {e}")
+        return None
+    finally:
+        # Ensure the alert_active flag is reset even if an error occurs
+        pulseaudio_shared_state.pa_shared[area_id]["alert_active"] = False
