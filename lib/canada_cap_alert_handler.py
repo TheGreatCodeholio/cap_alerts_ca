@@ -67,7 +67,7 @@ def process_alert(db, config_data, xml_data):
                                              alert_json[x].get("headline"), alert_json[x].get("description"),
                                              alert_json[x].get("area_list", []))
             # add a short delay to make sure audio file created before sending alert
-            time.sleep(5)
+            time.sleep(15)
             if audio >= 1:
                 alert_json[x][
                     "mp3_url"] = f'{config_data["general"].get("baseurl")}/static/alerts/{identifier}/{identifier}_{x.split("-")[0]}.mp3'
