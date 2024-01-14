@@ -22,8 +22,8 @@ def process_resources(resources, identifier, language, alert_folder_path, headli
                 audio += 1
 
     if audio == 0:
-        generate_tts_audio(identifier, language, alert_folder_path, headline, description, area_list)
-        audio += 1
+        result = generate_tts_audio(identifier, language, alert_folder_path, headline, description, area_list)
+        audio += result
 
     return audio, image
 
@@ -40,38 +40,52 @@ def save_audio(resource, identifier, language, alert_folder_path):
 
 
 def generate_tts_audio(identifier, language, alert_folder_path, headline, description, area_list):
-    start_time = time.time()
-    module_logger.debug(f"Starting generate_tts_audio for {identifier}")
-    language = language.split("-")[0]
-    alert_signal_file = os.path.join(os.getcwd(), 'var/audio_clips/ca_alert.mp3')
-    if os.path.exists(os.path.join(os.getcwd(), 'var/audio_clips/ca_alert_alt.mp3')):
-        alert_signal_file = os.path.join(os.getcwd(), 'var/audio_clips/ca_alert_alt.mp3')
+    try:
+        start_time = time.time()
+        module_logger.debug(f"Starting generate_tts_audio for {identifier}")
 
-    alert_audio_segment = pydub.AudioSegment.from_mp3(alert_signal_file)
+        if not headline and not description:
+            return 0
 
-    gtts_buf = io.BytesIO()
-    module_logger.warning(area_list)
-    areas = ', '.join(set(area.split("-")[0].strip() for area in area_list))
+        if description == "###":
+            return 0
 
-    #text_for_gtts = f'Alert for {areas} ' if areas else ""
-    text_for_gtts = f'{headline} ' if headline else ""
-    text_for_gtts += f'{description}' if description and description != "###" else ""
+        language = language.split("-")[0]
+        alert_signal_file = os.path.join(os.getcwd(), 'var/audio_clips/ca_alert.mp3')
+        if os.path.exists(os.path.join(os.getcwd(), 'var/audio_clips/ca_alert_alt.mp3')):
+            alert_signal_file = os.path.join(os.getcwd(), 'var/audio_clips/ca_alert_alt.mp3')
 
-    module_logger.debug(f"Requesting Text To Speech: {text_for_gtts}")
+        alert_audio_segment = pydub.AudioSegment.from_mp3(alert_signal_file)
 
-    tts = gTTS(text_for_gtts, lang=language)
+        gtts_buf = io.BytesIO()
+        module_logger.warning(area_list)
+        if len(area_list) < 10:
+            areas = ', '.join(set(area.split(" - ")[0].strip() for area in area_list))
+            text_for_gtts = f'Alert for {areas} ' if areas else ""
+        else:
+            text_for_gtts = ''
 
-    tts.write_to_fp(gtts_buf)
+        text_for_gtts += f'{headline.title()} ' if headline else ""
+        text_for_gtts += f'{description.split("###")[0]}' if description and description != "###" else ""
 
-    gtts_buf.seek(0)
+        module_logger.debug(f"Requesting Text To Speech: {text_for_gtts}")
 
-    voice_audio_segment = pydub.AudioSegment.from_file(gtts_buf, format="mp3")
+        tts = gTTS(text_for_gtts, lang=language)
+        tts.write_to_fp(gtts_buf)
+        gtts_buf.seek(0)
 
-    alert_audio_full = alert_audio_segment + voice_audio_segment
-    #final_audio = normalize_audio(alert_audio_full)
-    alert_audio_full.export(os.path.join(alert_folder_path, f"{identifier}_{language}.mp3"))
-    end_time = time.time()
-    module_logger.debug(f"Completed generate_tts_audio for {identifier} in {end_time - start_time:.2f} seconds")
+        voice_audio_segment = pydub.AudioSegment.from_file(gtts_buf, format="mp3")
+
+        alert_audio_full = alert_audio_segment + voice_audio_segment
+        alert_audio_full.export(os.path.join(alert_folder_path, f"{identifier}_{language}.mp3"))
+
+        end_time = time.time()
+        module_logger.debug(f"Completed generate_tts_audio for {identifier} in {end_time - start_time:.2f} seconds")
+        return 1
+
+    except Exception as e:
+        module_logger.error(f"Error in generate_tts_audio for {identifier}: {e}")
+        return 0
 
 
 def normalize_audio(audio_segment, target_dbfs=-20.0):
