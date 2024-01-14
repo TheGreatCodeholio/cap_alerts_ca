@@ -61,11 +61,11 @@ def generate_tts_audio(identifier, language, alert_folder_path, headline, descri
         module_logger.warning(area_list)
         if len(area_list) < 10:
             areas = ', '.join(set(area.split(" - ")[0].strip() for area in area_list))
-            text_for_gtts = f'Alert for {areas} ' if areas else ""
+            text_for_gtts = f'Alert for {areas} ... ' if areas else ""
         else:
             text_for_gtts = ''
 
-        text_for_gtts += f'{headline.title()} ' if headline else ""
+        text_for_gtts += f'{headline.title()} ... ' if headline else ""
         text_for_gtts += f'{description.split("###")[0]}' if description and description != "###" else ""
 
         module_logger.debug(f"Requesting Text To Speech: {text_for_gtts}")
