@@ -71,14 +71,27 @@ class IcecastStreamer:
         if t == Gst.MessageType.ERROR:
             err, debug = message.parse_error()
             module_logger.error(f"Error: {err}, {debug}")
+            self.attempt_reconnect()
         elif t == Gst.MessageType.EOS:
             module_logger.info("End-Of-Stream reached.")
+            self.attempt_reconnect()
+
+    def attempt_reconnect(self):
+        if self.running:
+            module_logger.info("Attempting to reconnect...")
+            self.stop()
+            time.sleep(2)  # Wait before attempting to reconnect
+            self.start()
+        else:
             self.stop()
 
     def run(self):
         try:
-            while self.running and not icecast_shared_state.ic_shared[self.icecast_id]["stop_signal"]:
-                time.sleep(1)  # Sleep for a short time to prevent high CPU usage
+            while self.running:
+                time.sleep(1)  # Sleep to prevent high CPU usage
+                if not icecast_shared_state.ic_shared[self.icecast_id]["stop_signal"]:
+                    if self.pipeline.get_state(0).state != Gst.State.PLAYING:
+                        self.attempt_reconnect()
         except Exception as e:
             module_logger.error(e)
         finally:
@@ -100,9 +113,15 @@ class IcecastStreamer:
             icecast_shared_state.ic_shared[self.icecast_id] = {}
             icecast_shared_state.ic_shared[self.icecast_id]["stop_signal"] = False
             self.running = True
-            module_logger.info(f"Starting stream... {self.icecast_id} on {self.alert_broadcast_config.get('output_audio_sink')}")
-            self.pipeline.set_state(Gst.State.PLAYING)
+            module_logger.info(
+                f"Starting stream... {self.icecast_id} on {self.alert_broadcast_config.get('output_audio_sink')}")
+            ret = self.pipeline.set_state(Gst.State.PLAYING)
+            if ret == Gst.StateChangeReturn.FAILURE:
+                module_logger.error(f"Failed to start streaming pipeline for {self.icecast_id}")
+                self.running = False
+                return
             self.thread.start()
+            module_logger.info(f"Streaming thread started for {self.icecast_id}")
 
     def stop(self):
         self.running = False

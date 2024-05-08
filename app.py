@@ -190,12 +190,14 @@ area_configs = config_data["canada_cap_stream"].get("alert_areas", [])
 for area in area_configs:
     if area["alert_broadcast"].get("enabled", 0) == 1:
         logger.info(f"Initializing audio for {area.get('area_name')}")
-        AudioRelay(config_data, area.get("area_id"), area["alert_broadcast"].get('input_alert_audio_sink'),
+        audio_relay = AudioRelay(config_data, area.get("area_id"), area["alert_broadcast"].get('input_alert_audio_sink'),
                    area["alert_broadcast"].get('input_stream_audio_sink'),
-                   area["alert_broadcast"].get('output_audio_sink')).start()
+                   area["alert_broadcast"].get('output_audio_sink'))
+        audio_relay.start()
         time.sleep(3)
         try:
-            IcecastStreamer(area["alert_broadcast"]).start()
+            ic_streamer = IcecastStreamer(area["alert_broadcast"])
+            ic_streamer.start()
         except Exception as e:
             traceback.print_exc()
             logger.error(e)
