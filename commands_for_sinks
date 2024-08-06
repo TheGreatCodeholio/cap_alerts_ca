@@ -1,0 +1,7 @@
+pactl load-module module-null-sink sink_name=ca_alert_sink sink_properties=device.description=Alert_Sink
+pactl load-module module-null-sink sink_name=ca_audio_out sink_properties=device.description=CA_Audio_Out
+pactl load-module module-loopback source=ca_audio_out.monitor sink=CA_Audio_Out_Loop
+
+
+pactl load-module module-null-sink sink_name=ns_eot_hot_out sink_properties=device.description=NS_EOT_HOT
+pactl load-module module-null-sink sink_name=ns_eot_dpu_out sink_properties=device.description=NS_DPU
