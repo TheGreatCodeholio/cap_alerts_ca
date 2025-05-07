@@ -227,25 +227,27 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
 
 def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert_json_full):
     module_logger.debug("Starting Dispatch")
+    alert_language = info_json.get("language", "en")
+    alert_sgc_codes = [str(code) for code in info_json.get("sgc_codes", [])]
+
     for area in area_config:
-        if area.get("language", "en") == info_json.get("language"):
-            prov_codes = [str(code) for code in area["sgc_codes"] if len(str(code)) == 2]
-            cd_codes = [str(code) for code in area["sgc_codes"] if len(str(code)) == 4]
-            csd_codes = [str(code) for code in area["sgc_codes"] if len(str(code)) == 7]
-            module_logger.debug(prov_codes)
-            module_logger.debug(cd_codes)
-            module_logger.debug(csd_codes)
-
-            alert_sgc_codes = [str(code) for code in info_json.get("sgc_codes", [])]
-
-            module_logger.debug(alert_sgc_codes)
+        if area.get("language", "en") == alert_language:
+            area_sgc_codes = [str(code) for code in area["sgc_codes"]]
 
             filter_match = False
 
-            for sgc_code in alert_sgc_codes:
-                if sgc_code[:2] in prov_codes or sgc_code[:4] in cd_codes or sgc_code[:7] in csd_codes:
-                    filter_match = True
-                    module_logger.info("SGC Match Found")
+            for alert_code in alert_sgc_codes:
+                alert_prefixes = [alert_code[:i] for i in range(2, len(alert_code) + 1, 2) if i <= 7]
+
+                for area_code in area_sgc_codes:
+                    area_prefixes = [area_code[:i] for i in range(2, len(area_code) + 1, 2) if i <= 7]
+
+                    # Check if any area prefix matches any alert prefix
+                    if any(alert_prefix in area_prefixes for alert_prefix in alert_prefixes):
+                        filter_match = True
+                        module_logger.info(f"SGC Match Found for alert code {alert_code} with area code {area_code}")
+                        break
+                if filter_match:
                     break
 
             if filter_match:

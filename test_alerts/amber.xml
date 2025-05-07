@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+    <identifier>oppe614b4b7-7e53-ef11-bfe3-000d3a8485ee</identifier>
+    <sender>opp.poc@opp.ca</sender>
+    <sent>2024-08-05T23:11:15+00:00</sent>
+    <status>Actual</status>
+    <msgType>Alert</msgType>
+    <scope>Public</scope>
+    <code>profile:CAP-CP:0.4</code>
+    <code>layer:SOREM:1.0</code>
+    <info>
+        <language>en-CA</language>
+        <category>Other</category>
+        <event>AMBER Alert</event>
+        <urgency>Immediate</urgency>
+        <severity>Extreme</severity>
+        <certainty>Observed</certainty>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>amber</value>
+        </eventCode>
+        <expires>2024-08-06T23:10:15+00:00</expires>
+        <senderName>OPP Provincial Operations Centre</senderName>
+        <headline>Ontario AMBER Alert in effect</headline>
+        <description>Ontario Amber Alert in Effect. The Waterloo Regional Police Service have requested an AMBER Alert
+            on 2024-08-05. Victim 1 CONLON KAYLEE, 14 years old, girl, white. Last seen in KITCHENER, ON. If observed
+            call 9 1 1 https://amberalert.opp.ca
+        </description>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>Yes</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Text</valueName>
+            <value>Ontario Amber Alert in Effect. The Waterloo Regional Police Service have requested an AMBER Alert on
+                2024-08-05. Victim 1 CONLON KAYLEE, 14 years old, girl, white. Last seen in KITCHENER, ON. If observed
+                call 9 1 1 https://amberalert.opp.ca
+            </value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>Yes</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessText</valueName>
+            <value>Ontario AMBER Alert Victim(s): CONLON KAYLEE (F-14 years old) Last seen: KITCHENER, ON If seen call
+                911 https://amberalert.opp.ca
+            </value>
+        </parameter>
+        <parameter>
+            <valueName>layer:WPAM:1.0:Expires</valueName>
+            <value>2024-08-05T23:26:15+00:00</value>
+        </parameter>
+        <resource>
+            <resourceDesc>Broadcast Audio</resourceDesc>
+            <mimeType>audio/mpeg</mimeType>
+            <uri>https://naadstts.s3.ca-central-1.amazonaws.com/oppe614b4b7-7e53-ef11-bfe3-000d3a8485ee-en-CA.mp3</uri>
+        </resource>
+        <area>
+            <areaDesc>Ontario</areaDesc>
+            <polygon>48.2211,-92.3700 48.6852,-94.6939 49.3927,-95.1560 52.8406,-95.1530 53.7501,-93.6298
+                55.8804,-90.5532 56.8574,-88.8753 56.4625,-87.9725 55.6555,-85.9027 55.2221,-82.9589 55.1094,-82.2531
+                54.8038,-82.1978 53.2739,-82.1124 52.4432,-81.5457 51.1657,-79.8363 51.3682,-79.7557 51.4611,-79.5156
+                47.5408,-79.5104 47.4331,-79.5867 47.2501,-79.4268 47.0842,-79.4349 47.0078,-79.3468 46.9279,-79.3054
+                46.8333,-79.2138 46.8253,-79.1707 46.7860,-79.1431 46.7111,-79.1027 46.6898,-79.0905 46.6547,-79.0538
+                46.6383,-79.0225 46.5908,-78.9956 46.5659,-78.9971 46.5330,-78.9699 46.4699,-78.8995 46.4426,-78.8558
+                46.4257,-78.8059 46.3853,-78.7313 46.3818,-78.7230 46.3541,-78.7208 46.3400,-78.7258 46.3198,-78.6972
+                46.3212,-78.6309 46.3189,-78.5969 46.2946,-78.5026 46.2971,-78.4307 46.2916,-78.3883 46.2525,-78.3123
+                46.2780,-78.2578 46.2713,-78.2062 46.2794,-78.1713 46.2744,-78.1298 46.2490,-78.0642 46.2490,-77.9999
+                46.2213,-77.9027 46.1926,-77.7263 46.1890,-77.7034 46.1989,-77.6757 46.1593,-77.5661 46.0595,-77.3623
+                46.0155,-77.2791 46.0126,-77.2733 45.9763,-77.2857 45.9542,-77.2796 45.9223,-77.2349 45.8638,-77.1903
+                45.8411,-77.0910 45.8093,-77.013 45.7866,-76.9876 45.8037,-76.9133 45.8496,-76.9293 45.8500,-76.9017
+                45.8682,-76.9219 45.8920,-76.9320 45.8980,-76.8947 45.8925,-76.8385 45.8753,-76.7796 45.8510,-76.7647
+                45.8054,-76.7623 45.7974,-76.7741 45.7476,-76.7661 45.7310,-76.7636 45.7224,-76.7352 45.7230,-76.7036
+                45.7072,-76.6896 45.7011,-76.6961 45.6873,-76.6868 45.6795,-76.6907 45.6760,-76.7031 45.6655,-76.7119
+                45.6265,-76.6679 45.5814,-76.6738 45.5319,-76.6079 45.5181,-76.5 45.5004,-76.4534 45.4570,-76.3616
+                45.4713,-76.2401 45.5106,-76.2365 45.5189,-76.2009 45.5200,-76.0966 45.4735,-75.9661 45.4094,-75.9042
+                45.3760,-75.8425 45.3776,-75.7994 45.4124,-75.7562 45.4167,-75.7217 45.4207,-75.7219 45.4246,-75.7047
+                45.4406,-75.7014 45.4558,-75.6889 45.4608,-75.6774 45.4716,-75.6182 45.5139,-75.4754 45.5194,-75.4569
+                45.5241,-75.4127 45.5371,-75.3425 45.5928,-75.2279 45.5767,-75.1326 45.5897,-75.0809 45.6154,-74.9805
+                45.6448,-74.9459 45.6392,-74.8012 45.6384,-74.6358 45.6051,-74.5599 45.5944,-74.4752 45.5684,-74.3758
+                45.3026,-74.4722 45.1870,-74.3203 45.0421,-74.4956 45.0009,-74.6732 44.3679,-75.9127 43.8040,-76.5696
+                43.6129,-79.3392 43.3178,-79.7968 43.2581,-79.0585 42.9337,-78.9097 42.7612,-78.9047 42.5075,-80.2485
+                42.2612,-81.7861 42.0598,-82.4652 41.6355,-82.4894 41.7454,-83.0808 41.9792,-83.1814 42.3182,-83.1164
+                42.3693,-82.9213 43.2501,-82.2949 43.3197,-81.7633 44.0914,-81.7611 45.3609,-81.9999 45.5018,-82.9934
+                46.3395,-84.6328 48.2211,-92.3700
+            </polygon>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>35</value>
+            </geocode>
+        </area>
+    </info>
+    <info>
+        <language>fr-CA</language>
+        <category>Other</category>
+        <event>Alerte AMBER</event>
+        <urgency>Immediate</urgency>
+        <severity>Extreme</severity>
+        <certainty>Observed</certainty>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>amber</value>
+        </eventCode>
+        <expires>2024-08-06T23:10:15+00:00</expires>
+        <senderName>OPP Provincial Operations Centre</senderName>
+        <headline>Ontario Amber Alert</headline>
+        <description>Ontario En Alerte- Alerte AMBER. Waterloo Regional Police Service a demandé une alerte AMBER le
+            2024-08-05 Victime 1 CONLON KAYLEE, 14 ans, fille, race blanche. Vu pour la dernière fois à KITCHENER, ON.
+            Si aperçus, composez le 9 1 1 https://amberalert.opp.ca
+        </description>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>Yes</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Text</valueName>
+            <value>Ontario En Alerte- Alerte AMBER. Waterloo Regional Police Service a demandé une alerte AMBER le
+                2024-08-05 Victime 1 CONLON KAYLEE, 14 ans, fille, race blanche. Vu pour la dernière fois à KITCHENER,
+                ON. Si aperçus, composez le 9 1 1 https://amberalert.opp.ca
+            </value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>Yes</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessText</valueName>
+            <value>Alerte AMBER de l’Ontario Victime(s): CONLON KAYLEE (F-14 ans) Vu pour la dernière fois: KITCHENER,
+                ON Si aperçus, composez le 911 https://amberalert.opp.ca
+            </value>
+        </parameter>
+        <parameter>
+            <valueName>layer:WPAM:1.0:Expires</valueName>
+            <value>2024-08-05T23:26:15+00:00</value>
+        </parameter>
+        <resource>
+            <resourceDesc>Broadcast Audio</resourceDesc>
+            <mimeType>audio/mpeg</mimeType>
+            <uri>https://naadstts.s3.ca-central-1.amazonaws.com/oppe614b4b7-7e53-ef11-bfe3-000d3a8485ee-fr-CA.mp3</uri>
+        </resource>
+        <area>
+            <areaDesc>Ontario</areaDesc>
+            <polygon>48.2211,-92.3700 48.6852,-94.6939 49.3927,-95.1560 52.8406,-95.1530 53.7501,-93.6298
+                55.8804,-90.5532 56.8574,-88.8753 56.4625,-87.9725 55.6555,-85.9027 55.2221,-82.9589 55.1094,-82.2531
+                54.8038,-82.1978 53.2739,-82.1124 52.4432,-81.5457 51.1657,-79.8363 51.3682,-79.7557 51.4611,-79.5156
+                47.5408,-79.5104 47.4331,-79.5867 47.2501,-79.4268 47.0842,-79.4349 47.0078,-79.3468 46.9279,-79.3054
+                46.8333,-79.2138 46.8253,-79.1707 46.7860,-79.1431 46.7111,-79.1027 46.6898,-79.0905 46.6547,-79.0538
+                46.6383,-79.0225 46.5908,-78.9956 46.5659,-78.9971 46.5330,-78.9699 46.4699,-78.8995 46.4426,-78.8558
+                46.4257,-78.8059 46.3853,-78.7313 46.3818,-78.7230 46.3541,-78.7208 46.3400,-78.7258 46.3198,-78.6972
+                46.3212,-78.6309 46.3189,-78.5969 46.2946,-78.5026 46.2971,-78.4307 46.2916,-78.3883 46.2525,-78.3123
+                46.2780,-78.2578 46.2713,-78.2062 46.2794,-78.1713 46.2744,-78.1298 46.2490,-78.0642 46.2490,-77.9999
+                46.2213,-77.9027 46.1926,-77.7263 46.1890,-77.7034 46.1989,-77.6757 46.1593,-77.5661 46.0595,-77.3623
+                46.0155,-77.2791 46.0126,-77.2733 45.9763,-77.2857 45.9542,-77.2796 45.9223,-77.2349 45.8638,-77.1903
+                45.8411,-77.0910 45.8093,-77.013 45.7866,-76.9876 45.8037,-76.9133 45.8496,-76.9293 45.8500,-76.9017
+                45.8682,-76.9219 45.8920,-76.9320 45.8980,-76.8947 45.8925,-76.8385 45.8753,-76.7796 45.8510,-76.7647
+                45.8054,-76.7623 45.7974,-76.7741 45.7476,-76.7661 45.7310,-76.7636 45.7224,-76.7352 45.7230,-76.7036
+                45.7072,-76.6896 45.7011,-76.6961 45.6873,-76.6868 45.6795,-76.6907 45.6760,-76.7031 45.6655,-76.7119
+                45.6265,-76.6679 45.5814,-76.6738 45.5319,-76.6079 45.5181,-76.5 45.5004,-76.4534 45.4570,-76.3616
+                45.4713,-76.2401 45.5106,-76.2365 45.5189,-76.2009 45.5200,-76.0966 45.4735,-75.9661 45.4094,-75.9042
+                45.3760,-75.8425 45.3776,-75.7994 45.4124,-75.7562 45.4167,-75.7217 45.4207,-75.7219 45.4246,-75.7047
+                45.4406,-75.7014 45.4558,-75.6889 45.4608,-75.6774 45.4716,-75.6182 45.5139,-75.4754 45.5194,-75.4569
+                45.5241,-75.4127 45.5371,-75.3425 45.5928,-75.2279 45.5767,-75.1326 45.5897,-75.0809 45.6154,-74.9805
+                45.6448,-74.9459 45.6392,-74.8012 45.6384,-74.6358 45.6051,-74.5599 45.5944,-74.4752 45.5684,-74.3758
+                45.3026,-74.4722 45.1870,-74.3203 45.0421,-74.4956 45.0009,-74.6732 44.3679,-75.9127 43.8040,-76.5696
+                43.6129,-79.3392 43.3178,-79.7968 43.2581,-79.0585 42.9337,-78.9097 42.7612,-78.9047 42.5075,-80.2485
+                42.2612,-81.7861 42.0598,-82.4652 41.6355,-82.4894 41.7454,-83.0808 41.9792,-83.1814 42.3182,-83.1164
+                42.3693,-82.9213 43.2501,-82.2949 43.3197,-81.7633 44.0914,-81.7611 45.3609,-81.9999 45.5018,-82.9934
+                46.3395,-84.6328 48.2211,-92.3700
+            </polygon>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>35</value>
+            </geocode>
+        </area>
+    </info>
+    <Signature Id="NAADS Signature" xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                <DigestValue>EV3AnsE/9Zb9r+uOydS/ZqEGIsIlH7e7EeKBuTkwDRQ=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>
+            OkuqFt6u6yUG9v5+BtaNzjqj+QE+a1EYmFCgJFahzmCDoDllXjy2X4PfieVdztkjDaWAWa/g/HEni+07LMGELp6v4dIpoIBO91xkhgucDsGhYJcf2pdHsTrR8pot71gq2BYw8KmWhHFXV3tg9HuNpdWbhBlgs+RdpBls742GpsMtLZ8xDDm/gsH5k8C0AQbRe6yAt1jU/ZyhuEN9iACnn/ozC+y56CjBnRcIpNCxSL6ge8HmPWSCebuHtOqkEHcK32RuIwwEdV6IIzF0M2rRwi+jzcynrnQMyDM5SjICXx9wAXh1aWFaRktEZzTzYFArLEbVQPo8RtvEA+im60VH6Q==
+        </SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>
+                    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
+                </X509Certificate>
+            </X509Data>
+        </KeyInfo>
+        <Object xmlns="">
+            <SignatureProperties>
+                <SignatureProperty Id="NAADS-DSS1" Target="https://dss1.naad-adna.pelmorex.com">
+                    <xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd"/>
+                </SignatureProperty>
+                <SignatureProperty Id="NAADS-DSS2" Target="https://dss2.naad-adna.pelmorex.com">
+                    <xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd"/>
+                </SignatureProperty>
+            </SignatureProperties>
+        </Object>
+    </Signature>
+</alert>
