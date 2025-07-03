@@ -18,6 +18,7 @@ from lib.webhook_handler import post_to_webhook_ca
 module_logger = logging.getLogger('icad_cap_alerts.canada_cap_alerts')
 alert_path = os.path.join(os.getcwd(), "static/alerts")
 
+VALID_SGC_LEN = {1, 2, 4, 7}
 
 def process_alert(db, config_data, xml_data):
     """Parse the CAP alert XML data."""
@@ -225,42 +226,61 @@ def convert_alert_xml(config_data, filename, xml_data, alert_folder_path):
     return alert_dict
 
 
+def clean_sgc_list(raw_list, kind):
+    """Return list of valid SGC strings; log and drop the bad ones."""
+    cleaned = []
+    for raw in raw_list:
+        try:
+            n = int(raw)
+            s = str(n)
+            if len(s) in VALID_SGC_LEN:
+                cleaned.append(s)
+            else:
+                module_logger.warning(f"Skipping {kind} SGC with bad length: {raw}")
+        except ValueError:
+            module_logger.warning(f"Skipping {kind} SGC (not an int): {raw}")
+    return cleaned
+
+
+def match_sgc(alert_code: str, area_code: str) -> bool:
+    """Exact match for 1/2-digit areas, prefix match for 4/7-digit."""
+    return (
+        alert_code == area_code                       # exact
+        if len(area_code) <= 2
+        else alert_code.startswith(area_code)         # prefix
+    )
+
 def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert_json_full):
     module_logger.debug("Starting Dispatch")
+
     alert_language = info_json.get("language", "en")
-    alert_sgc_codes = [str(code) for code in info_json.get("sgc_codes", [])]
+    alert_sgc_codes = clean_sgc_list(info_json.get("sgc_codes", []), "alert")
 
     for area in area_config:
-        if area.get("language", "en") == alert_language:
-            area_sgc_codes = [str(code) for code in area["sgc_codes"]]
+        if area.get("language", "en") != alert_language:
+            continue
 
-            filter_match = False
+        area_sgc_codes = clean_sgc_list(area["sgc_codes"], "area")
 
-            for alert_code in alert_sgc_codes:
-                alert_prefixes = [alert_code[:i] for i in range(2, len(alert_code) + 1, 2) if i <= 7]
+        filter_match = any(
+            match_sgc(alert_code, area_code)
+            for alert_code in alert_sgc_codes
+            for area_code in area_sgc_codes
+        )
 
-                for area_code in area_sgc_codes:
-                    area_prefixes = [area_code[:i] for i in range(2, len(area_code) + 1, 2) if i <= 7]
+        if not filter_match:
+            continue
 
-                    # Check if any area prefix matches any alert prefix
-                    if any(alert_prefix in area_prefixes for alert_prefix in alert_prefixes):
-                        filter_match = True
-                        module_logger.info(f"SGC Match Found for alert code {alert_code} with area code {area_code}")
-                        break
-                if filter_match:
-                    break
+        # ---- dispatch alert ---------------------------
+        Thread(target=post_to_webhook_ca, args=(area, alert_json_full)).start()
 
-            if filter_match:
-                Thread(target=post_to_webhook_ca, args=(area, alert_json_full)).start()
-                #post_to_webhook_ca(area, alert_json_full)
-                if info_json.get("mp3_local_path") and area.get("alert_broadcast", {}).get("enabled", 0) == 1:
-                    mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
-                    Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
-                    #play_mp3_on_sink(mp3_path, area)
-                if area.get("rdio", {}).get("enabled", 0) == 1:
-                    mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json.get('language')}.mp3")
-                    Thread(target=upload_to_rdio_ca, args=(mp3_path, area, info_json)).start()
-                    #upload_to_rdio_ca(mp3_path, area, info_json)
+        if info_json.get("mp3_local_path") and area.get("alert_broadcast", {}).get("enabled", 0) == 1:
+            mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json['language']}.mp3")
+            Thread(target=play_mp3_on_sink, args=(mp3_path, area)).start()
+
+        if area.get("rdio", {}).get("enabled", 0) == 1:
+            mp3_path = os.path.join(alert_folder_path, f"{identifier}_{info_json['language']}.mp3")
+            Thread(target=upload_to_rdio_ca, args=(mp3_path, area, info_json)).start()
 
 def to_epoch(date_str):
     """Convert ISO 8601 date strings to epoch time."""
