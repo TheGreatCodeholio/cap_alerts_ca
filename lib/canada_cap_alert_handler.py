@@ -39,12 +39,12 @@ def process_alert(db, config_data, xml_data):
     filename = reference.translate({ord('-'): ord('_'), ord(':'): ord('_'), ord('+'): ord('p')})
 
     # Print the parsed data (or process it as needed)
-    print(f"Identifier: {identifier}")
-    print(f"Sender: {sender}")
-    print(f"Sent: {timestamp}")
-    print(f"Status: {status}")
-    print(f"Message Type: {msgType}")
-    print(f"Scope: {scope}")
+    module_logger.debug(f"Identifier: {identifier}")
+    module_logger.debug(f"Sender: {sender}")
+    module_logger.debug(f"Sent: {timestamp}")
+    module_logger.debug(f"Status: {status}")
+    module_logger.debug(f"Message Type: {msgType}")
+    module_logger.debug(f"Scope: {scope}")
 
     alert_folder_path = os.path.join(alert_path, filename)
     if not os.path.exists(alert_folder_path):

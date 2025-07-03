@@ -70,7 +70,7 @@ def create_map_image(config_data, alert_file_name, polygons, alert_folder_path):
         buf.seek(0)
         image_base64 = base64.b64encode(buf.read()).decode('utf-8')
     except Exception as e:
-        print(f"An error occurred while creating the map image: {e}")
+        module_logger.error(f"An error occurred while creating the map image: {e}")
         image_base64 = None
     finally:
         if buf:
