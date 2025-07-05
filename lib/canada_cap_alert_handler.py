@@ -4,6 +4,7 @@ import logging
 import os
 import time
 import xml.etree.ElementTree as ET
+from multiprocessing.util import debug
 from threading import Thread
 
 import requests
@@ -257,7 +258,11 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert
     alert_sgc_codes = clean_sgc_list(info_json.get("sgc_codes", []), "alert")
 
     for area in area_config:
-        if area.get("language", "en") != alert_language:
+
+        # If debug is enabled in the area config we post all alerts to the configured webhooks
+        debug_enabled = area.get("debug", False)
+
+        if area.get("language", "en") != alert_language and not debug_enabled:
             continue
 
         area_sgc_codes = clean_sgc_list(area["sgc_codes"], "area")
@@ -268,7 +273,7 @@ def dispatch_alerts(area_config, alert_folder_path, identifier, info_json, alert
             for area_code in area_sgc_codes
         )
 
-        if not filter_match:
+        if not filter_match and not debug_enabled:
             continue
 
         # ---- dispatch alert ---------------------------

@@ -33,6 +33,7 @@
       {
         "area_id": 1,
         "area_name": "Canada Wide",
+        "debug": true,
         "sgc_codes": [
           10,
           11,
